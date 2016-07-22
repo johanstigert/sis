@@ -26,9 +26,13 @@ public class DateRange {
 	public DateRange(String startYyyymmdd, String endYyyymmdd) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		try {
-			this.start = sdf.parse(startYyyymmdd);
-			this.end = sdf.parse(endYyyymmdd);
-		} catch (ParseException | NullPointerException e) {
+			if (startYyyymmdd != null) {
+				this.start = sdf.parse(startYyyymmdd);
+			}
+			if (endYyyymmdd != null) {
+				this.end = sdf.parse(endYyyymmdd);
+			}
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
