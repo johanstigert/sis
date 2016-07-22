@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plain.build" name="Create Runnable Jars">
+
+	<!-- General properties -->
+
+	<property name="project.name" value="skola-model" />
+
+	<property name="jar.name" value="skola-model.jar" />
+<!--	<property name="jar.manifest.main-class" value="main.VklassMain" /> -->
+<!--	<property name="jar.manifest.built-by" value="TimeEdit" /> -->
+
+	<!-- Standard properties -->
+
+	<property name="app.stub.name" value="JavaApplicationStub" />
+	<property name="app.stub.dir" value="Contents/MacOS" />
+	<property name="app.jar.dir" value="Contents/Resources/Java" />
+
+	<property name="bin.folder" value="./bin" />
+
+	<property name="build.dir" value="./dist" />
+	<property name="build.dir.plain" value="${build.dir}/plain" />
+	<property name="build.dir.mac" value="${build.dir}/mac" />
+	<property name="build.dir.win" value="${build.dir}/win" />
+
+	<tstamp>
+		<format property="DATE" pattern="yyMMdd" />
+	</tstamp>
+
+	<!-- Build Plain -->
+	<target name="plain.build">
+		<!-- Create build dir -->
+		<mkdir dir="${build.dir}" />
+
+		<!-- Build -->
+		<mkdir dir="${build.dir.plain}" />
+		<jar destfile="${build.dir.plain}/${jar.name}" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Built-By" value="${jar.manifest.built-by}" />
+				<attribute name="Main-Class" value="${jar.manifest.main-class}" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+			<zipfileset excludes="META-INF/*.SF" src="lib/jackson-annotations-2.7.0.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/jackson-core-2.7.0.jar" />
+			<zipfileset excludes="META-INF/*.SF" src="lib/jackson-databind-2.7.0.jar" />
+			<fileset dir="${bin.folder}" />
+		</jar>
+	</target>
+</project>
