@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class StudentNode implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,7 +19,7 @@ public class StudentNode implements Serializable {
 
 	public StudentNode() {
 	}
-	
+
 	public String getNativeLanguage() {
 		return nativeLanguage;
 	}

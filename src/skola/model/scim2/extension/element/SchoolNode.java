@@ -1,10 +1,15 @@
 package skola.model.scim2.extension.element;
 
+import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ URN_DATUMINTERVALL, "schoolUnitId", "schoolType", "schoolYear", "programCode" })
 public class SchoolNode {
 
@@ -15,7 +20,7 @@ public class SchoolNode {
 
 	public SchoolNode() {
 	}
-	
+
 	@JsonProperty(URN_DATUMINTERVALL)
 	private DateRange dateInterval;
 

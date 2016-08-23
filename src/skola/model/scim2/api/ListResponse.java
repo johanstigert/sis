@@ -2,6 +2,11 @@ package skola.model.scim2.api;
 
 import java.util.List;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 // https://tools.ietf.org/html/rfc7644#section-3.4.2
 public class ListResponse {
 

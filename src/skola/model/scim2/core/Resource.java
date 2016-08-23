@@ -2,6 +2,11 @@ package skola.model.scim2.core;
 
 import java.util.Arrays;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public abstract class Resource {
 
 	private String[] schemas;
@@ -48,12 +53,12 @@ public abstract class Resource {
 		this.meta = meta;
 	}
 
-	public enum ResourceType {
+	public enum ResourceTypeStr {
 		GROUP("Group"), EMPLOYEE("Employee"), STUDENT("Student"), ACTIVITY("Activity"), CALENDAREVENT("CalendarEvent");
 
 		private final String type;
 
-		private ResourceType(String type) {
+		private ResourceTypeStr(String type) {
 			this.type = type;
 		}
 

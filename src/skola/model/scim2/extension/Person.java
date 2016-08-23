@@ -7,6 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import skola.model.scim2.extension.element.Phone;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class Person {
 
 	private String pnr;

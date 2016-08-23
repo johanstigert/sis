@@ -3,6 +3,11 @@ package skola.model.scim2.extension.element;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "value", "$ref", "display" })
 public class ContactPerson {
 
@@ -16,7 +21,7 @@ public class ContactPerson {
 
 	public ContactPerson() {
 	}
-	
+
 	public ContactPerson(String value, String ref, String display, String contactType) {
 		this.value = value;
 		this.ref = ref;

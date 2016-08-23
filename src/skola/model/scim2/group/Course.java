@@ -1,5 +1,10 @@
 package skola.model.scim2.group;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 // https://github.com/girgen/skolschema/blob/master/group-kursgrupp.json
 // https://github.com/girgen/skolschema/blob/master/group-subject.json
 public class Course implements IGroupType {

@@ -2,6 +2,11 @@ package skola.model.scim2.extension.element;
 
 import skola.model.scim2.group.IGroupType;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class GroupNode {
 
 	private IGroupType groupType;

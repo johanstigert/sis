@@ -1,18 +1,26 @@
 package skola.model.scim2.core;
 
+import static skola.model.scim2.extension.element.Constant.BASE_URI;
+import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
+import static skola.model.scim2.extension.element.Constant.URN_GROUP_CORE;
+import static skola.model.scim2.extension.element.Constant.URN_GROUP_EXTENSION;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import skola.model.scim2.core.schema.ResourceType;
 import skola.model.scim2.extension.element.DateRange;
 import skola.model.scim2.extension.element.GroupNode;
 import skola.model.scim2.extension.element.Member;
 
-import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-import static skola.model.scim2.extension.element.Constant.URN_GROUP_EXTENSION;
-
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "schemas", "id", "externalId", "displayName", "members", "dateInterval", "group", "meta" })
 public class Group extends Resource {
 
@@ -126,4 +134,10 @@ public class Group extends Resource {
 			return false;
 		return true;
 	};
+
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("Group", "/Groups", "Grupp", URN_GROUP_CORE);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Groups", null));
+		return type;
+	}
 }

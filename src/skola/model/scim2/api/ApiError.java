@@ -2,6 +2,11 @@ package skola.model.scim2.api;
 
 import static skola.model.scim2.extension.element.Constant.URN_ERROR;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 // https://tools.ietf.org/html/rfc7644#section-3.12
 public class ApiError {
 
@@ -12,7 +17,7 @@ public class ApiError {
 
 	public ApiError() {
 	}
-	
+
 	public ApiError(String status, String scimType, String detail) {
 		this.schemas = new String[1];
 		this.schemas[0] = URN_ERROR;

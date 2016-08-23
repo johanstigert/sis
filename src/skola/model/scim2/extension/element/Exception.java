@@ -3,19 +3,24 @@ package skola.model.scim2.extension.element;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "id", "dateTimeRange", "length", "type" })
 public class Exception {
 
 	private String id;
 	private DateTimeRange dateTimeRange;
-	
+
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	private int length;
 	private String type;
 
 	public Exception() {
 	}
-	
+
 	public Exception(String id, DateTimeRange dateTimeRange, int length, String type) {
 		this.id = id;
 		this.dateTimeRange = dateTimeRange;

@@ -1,12 +1,18 @@
 package skola.model.scim2.extension.element;
 
+import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "value", "$ref", "display", URN_DATUMINTERVALL })
 public class Member {
 

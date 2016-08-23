@@ -2,6 +2,11 @@ package skola.model.scim2.group;
 
 import java.util.List;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 // https://github.com/girgen/skolschema/blob/master/group-schoolunit.json
 public class SchoolUnit implements IGroupType {
 
@@ -12,7 +17,7 @@ public class SchoolUnit implements IGroupType {
 
 	public SchoolUnit() {
 	}
-	
+
 	public String getSchoolUnitCode() {
 		return schoolUnitCode;
 	}

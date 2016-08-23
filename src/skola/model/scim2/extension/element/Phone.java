@@ -2,6 +2,11 @@ package skola.model.scim2.extension.element;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class Phone {
 
 	private String number;

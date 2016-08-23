@@ -2,6 +2,11 @@ package skola.model.scim2.extension.element;
 
 import java.util.Date;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class DateRangeSpan extends DateRange {
 
 	private int yearWorkTime;

@@ -2,6 +2,11 @@ package skola.model.scim2.extension.element;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "value", "$ref", "display", "type" })
 public class GroupReference extends Reference {
 

@@ -3,6 +3,11 @@ package skola.model.scim2.core.element;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "value", "type", "primary" })
 public class Email {
 

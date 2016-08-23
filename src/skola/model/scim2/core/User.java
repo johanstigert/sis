@@ -7,6 +7,11 @@ import skola.model.scim2.core.element.Email;
 import skola.model.scim2.core.element.Name;
 import skola.model.scim2.extension.element.GroupReference;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class User extends Resource {
 
 	private String userName;

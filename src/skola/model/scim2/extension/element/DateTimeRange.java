@@ -1,13 +1,19 @@
 package skola.model.scim2.extension.element;
 
+import static skola.model.scim2.extension.element.Constant.DATE_TIME_FORMAT;
+import static skola.model.scim2.extension.element.Constant.TIMEZONE;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import static skola.model.scim2.extension.element.Constant.DATE_TIME_FORMAT;
-import static skola.model.scim2.extension.element.Constant.TIMEZONE;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class DateTimeRange {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT, timezone = TIMEZONE)

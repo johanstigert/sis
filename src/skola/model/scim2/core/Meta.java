@@ -2,6 +2,11 @@ package skola.model.scim2.core;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "resourceType", "created", "lastModified", "version", "location" })
 public class Meta {
 
@@ -59,6 +64,9 @@ public class Meta {
 	}
 
 	public void setVersion(String version) {
+		if (version == null) {
+			return;
+		}
 		if (version.contains("W")) {
 			this.version = version;
 		} else {

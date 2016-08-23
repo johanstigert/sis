@@ -1,18 +1,27 @@
 package skola.model.scim2.extension;
 
+import static skola.model.scim2.extension.element.Constant.BASE_URI;
+import static skola.model.scim2.extension.element.Constant.URN_ACTIVITY;
+import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import skola.model.scim2.core.Meta;
 import skola.model.scim2.core.Resource;
+import skola.model.scim2.core.schema.ResourceType;
 import skola.model.scim2.extension.element.DateRange;
 import skola.model.scim2.extension.element.Reference;
 import skola.model.scim2.extension.element.TeacherAssignment;
 
-import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "schemas", "id", "externalId", "displayName", "school", "course", "type", URN_DATUMINTERVALL,
 		"groups", "students", "teacherAssignments", "parentactivity", "meta" })
 public class Activity extends Resource {
@@ -197,5 +206,11 @@ public class Activity extends Resource {
 		} else if (!type.equals(other.type))
 			return false;
 		return true;
+	}
+
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("Activity", "/Activities", "Aktivitet", URN_ACTIVITY);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Activities", null));
+		return type;
 	}
 }

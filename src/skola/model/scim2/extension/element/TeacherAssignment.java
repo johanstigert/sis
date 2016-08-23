@@ -1,9 +1,15 @@
 package skola.model.scim2.extension.element;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "value", "$ref", "display", URN_DATUMINTERVALL, "timeplanned" })
 public class TeacherAssignment {
 
@@ -19,7 +25,7 @@ public class TeacherAssignment {
 
 	public TeacherAssignment() {
 	}
-	
+
 	public TeacherAssignment(String value, String ref, String display, DateRange dateInterval, int timeplanned) {
 		this.value = value;
 		this.ref = ref;

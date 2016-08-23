@@ -1,5 +1,10 @@
 package skola.model.scim2.extension.element;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class Enum {
 
 	public enum NativeLanguage {

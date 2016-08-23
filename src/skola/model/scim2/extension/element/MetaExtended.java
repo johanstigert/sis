@@ -2,6 +2,11 @@ package skola.model.scim2.extension.element;
 
 import skola.model.scim2.core.Meta;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class MetaExtended extends Meta {
 
 	private String creatingSystem;

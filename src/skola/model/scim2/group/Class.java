@@ -4,6 +4,11 @@ import java.util.List;
 
 import skola.model.scim2.extension.element.Responsible;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 // https://github.com/girgen/skolschema/blob/master/klass.json
 public class Class implements IGroupType {
 

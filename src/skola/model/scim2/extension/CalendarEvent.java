@@ -1,14 +1,24 @@
 package skola.model.scim2.extension;
 
+import static skola.model.scim2.extension.element.Constant.BASE_URI;
+import static skola.model.scim2.extension.element.Constant.URN_CALENDAREVENT;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import skola.model.scim2.core.Meta;
 import skola.model.scim2.core.Resource;
+import skola.model.scim2.core.schema.ResourceType;
 import skola.model.scim2.extension.element.DateTimeRange;
 import skola.model.scim2.extension.element.Exception;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "schemas", "id", "externalId", "activity", "cancelled", "comment", "dateTimeRange",
 		"teachingLengthTeacher", "teachingLengthGroup", "rooms", "resource", "studentExceptions", "teacherExceptions",
 		"groupExceptions", "meta" })
@@ -28,7 +38,7 @@ public class CalendarEvent extends Resource {
 
 	public CalendarEvent() {
 	}
-	
+
 	public CalendarEvent(String id) {
 		super(id);
 	}
@@ -225,5 +235,11 @@ public class CalendarEvent extends Resource {
 		if (teachingLengthTeacher != other.teachingLengthTeacher)
 			return false;
 		return true;
+	}
+
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("CalendarEvent", "/CalendarEvents", "Kalenderpost", URN_CALENDAREVENT);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/CalendarEvents", null));
+		return type;
 	}
 }

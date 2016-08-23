@@ -1,8 +1,14 @@
 package skola.model.scim2.extension.element;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import static skola.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class Responsible {
 
 	private String value;

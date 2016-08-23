@@ -1,15 +1,20 @@
 package skola.model.scim2.extension.element;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class Constant {
 
 	public static final String SCIM_CONTENT_TYPE = "application/json+scim; charset=UTF-8";
 
-	public static final String BASE_URI = "http://localhost:8080/skolapi/v1";
+	public static final String BASE_URI = "https://se.timeedit.net/scim/tieto_test/v1";
 
 	public static final String URN_USER = "urn:ietf:params:scim:schemas:core:2.0:User";
 	public static final String URN_PERSON = "urn:scim:schemas:extension:skola:person:1.0";
 	public static final String URN_STUDENT = "urn:scim:schemas:extension:skola:student:1.0";
-	public static final String URN_ANSTALLD = "urn:scim:schemas:extension:skola:anstalld:1.0";
+	public static final String URN_EMPLOYEE = "urn:scim:schemas:extension:skola:employee:1.0";
 
 	public static final String URN_GROUP_CORE = "urn:ietf:params:scim:schemas:core:2.0:Group";
 	public static final String URN_GROUP_EXTENSION = "urn:scim:schemas:extension:skola:group:1.0";
@@ -20,6 +25,7 @@ public class Constant {
 
 	public static final String URN_ACTIVITY = "urn:scim:schemas:extension:skola:activity:1.0";
 	public static final String URN_CALENDAREVENT = "urn:scim:schemas:extension:skola:calendarevent:1.0";
+	public static final String URN_RESOURCETYPE = "urn:ietf:params:scim:schemas:core:2.0:ResourceType";
 
 	public static final String URN_DATUMINTERVALL = "urn:scim:schemas:extension:skola:datumintervall:1.0";
 	public static final String URN_ERROR = "urn:ietf:params:scim:api:messages:2.0:Error";

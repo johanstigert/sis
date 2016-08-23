@@ -1,5 +1,10 @@
 package skola.model.scim2.core.element;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 public class Name {
 
 	private String formatted;
@@ -11,7 +16,7 @@ public class Name {
 
 	public Name() {
 	}
-	
+
 	public Name(String formatted, String familyName, String givenName, String middleName, String honorificPrefix,
 			String honorificSuffix) {
 		this.formatted = formatted;
