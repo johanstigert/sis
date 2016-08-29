@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import skola.model.scim2.core.Meta;
 import skola.model.scim2.core.Resource;
 import skola.model.scim2.core.schema.ResourceType;
+import skola.model.scim2.extension.element.Assignment;
 import skola.model.scim2.extension.element.DateRange;
-import skola.model.scim2.extension.element.Reference;
 import skola.model.scim2.extension.element.TeacherAssignment;
 
 /**
@@ -26,17 +26,24 @@ import skola.model.scim2.extension.element.TeacherAssignment;
 		"groups", "students", "teacherAssignments", "parentactivity", "meta" })
 public class Activity extends Resource {
 
-	private String displayName;
-	private String school;
-	private String course;
-	private String type;
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("Activity", "/Activities", "Aktivitet", URN_ACTIVITY);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Activities", null));
+		return type;
+	}
 
+	private String displayName;
+	private String schoolUnit;
+	private String course;
+
+	private String type;
 	@JsonProperty(URN_DATUMINTERVALL)
 	private DateRange dateInterval;
-	private List<Reference> groups;
-	private List<Reference> students;
+	private List<Assignment> groupAssignments;
+	private List<Assignment> studentAssignments;
 	private List<TeacherAssignment> teacherAssignments;
-	private String parentactivity;
+
+	private String parentactivity; // TODO: Flera ParentActivity?
 
 	public Activity() {
 	}
@@ -45,80 +52,16 @@ public class Activity extends Resource {
 		super(id);
 	}
 
-	public String getDisplayName() {
-		return displayName;
+	public void addStudentAssignment(Assignment studentAssignment) {
+		if (this.studentAssignments == null)
+			this.studentAssignments = new ArrayList<Assignment>();
+		this.studentAssignments.add(studentAssignment);
 	}
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	public String getSchool() {
-		return school;
-	}
-
-	public void setSchool(String school) {
-		this.school = school;
-	}
-
-	public String getCourse() {
-		return course;
-	}
-
-	public void setCourse(String course) {
-		this.course = course;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public DateRange getDateInterval() {
-		return dateInterval;
-	}
-
-	public void setDateInterval(DateRange dateInterval) {
-		this.dateInterval = dateInterval;
-	}
-
-	public List<Reference> getGroups() {
-		return groups;
-	}
-
-	public void setGroups(List<Reference> groups) {
-		this.groups = groups;
-	}
-
-	public void addGroup(Reference reference) {
-		if (this.groups == null)
-			this.groups = new ArrayList<Reference>();
-		this.groups.add(reference);
-	}
-
-	public List<Reference> getStudents() {
-		return students;
-	}
-
-	public void setStudents(List<Reference> students) {
-		this.students = students;
-	}
-
-	public void addStudent(Reference reference) {
-		if (this.students == null)
-			this.students = new ArrayList<Reference>();
-		this.students.add(reference);
-	}
-
-	public List<TeacherAssignment> getTeacherAssignments() {
-		return teacherAssignments;
-	}
-
-	public void setTeacherAssignments(List<TeacherAssignment> teacherAssignments) {
-		this.teacherAssignments = teacherAssignments;
+	public void addGroupAssignment(Assignment groupAssignment) {
+		if (this.groupAssignments == null)
+			this.groupAssignments = new ArrayList<Assignment>();
+		this.groupAssignments.add(groupAssignment);
 	}
 
 	public void addTeacherAssignment(TeacherAssignment teacherAssignment) {
@@ -127,28 +70,76 @@ public class Activity extends Resource {
 		this.teacherAssignments.add(teacherAssignment);
 	}
 
+	public String getCourse() {
+		return course;
+	}
+
+	public DateRange getDateInterval() {
+		return dateInterval;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public List<Assignment> getGroupAssignments() {
+		return groupAssignments;
+	}
+
 	public String getParentactivity() {
 		return parentactivity;
+	}
+
+	public String getSchoolUnit() {
+		return schoolUnit;
+	}
+
+	public List<Assignment> getStudentAssignments() {
+		return studentAssignments;
+	}
+
+	public List<TeacherAssignment> getTeacherAssignments() {
+		return teacherAssignments;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setCourse(String course) {
+		this.course = course;
+	}
+
+	public void setDateInterval(DateRange dateInterval) {
+		this.dateInterval = dateInterval;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public void setGroupAssignments(List<Assignment> groupAssignments) {
+		this.groupAssignments = groupAssignments;
 	}
 
 	public void setParentactivity(String parentactivity) {
 		this.parentactivity = parentactivity;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((course == null) ? 0 : course.hashCode());
-		result = prime * result + ((dateInterval == null) ? 0 : dateInterval.hashCode());
-		result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
-		result = prime * result + ((groups == null) ? 0 : groups.hashCode());
-		result = prime * result + ((parentactivity == null) ? 0 : parentactivity.hashCode());
-		result = prime * result + ((school == null) ? 0 : school.hashCode());
-		result = prime * result + ((students == null) ? 0 : students.hashCode());
-		result = prime * result + ((teacherAssignments == null) ? 0 : teacherAssignments.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
+	public void setSchoolUnit(String school) {
+		this.schoolUnit = school;
+	}
+
+	public void setStudentAssignments(List<Assignment> studentAssignments) {
+		this.studentAssignments = studentAssignments;
+	}
+
+	public void setTeacherAssignments(List<TeacherAssignment> teacherAssignments) {
+		this.teacherAssignments = teacherAssignments;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
@@ -175,25 +166,25 @@ public class Activity extends Resource {
 				return false;
 		} else if (!displayName.equals(other.displayName))
 			return false;
-		if (groups == null) {
-			if (other.groups != null)
+		if (groupAssignments == null) {
+			if (other.groupAssignments != null)
 				return false;
-		} else if (!groups.equals(other.groups))
+		} else if (!groupAssignments.equals(other.groupAssignments))
 			return false;
 		if (parentactivity == null) {
 			if (other.parentactivity != null)
 				return false;
 		} else if (!parentactivity.equals(other.parentactivity))
 			return false;
-		if (school == null) {
-			if (other.school != null)
+		if (schoolUnit == null) {
+			if (other.schoolUnit != null)
 				return false;
-		} else if (!school.equals(other.school))
+		} else if (!schoolUnit.equals(other.schoolUnit))
 			return false;
-		if (students == null) {
-			if (other.students != null)
+		if (studentAssignments == null) {
+			if (other.studentAssignments != null)
 				return false;
-		} else if (!students.equals(other.students))
+		} else if (!studentAssignments.equals(other.studentAssignments))
 			return false;
 		if (teacherAssignments == null) {
 			if (other.teacherAssignments != null)
@@ -208,9 +199,19 @@ public class Activity extends Resource {
 		return true;
 	}
 
-	public static ResourceType getResourceType() {
-		ResourceType type = new ResourceType("Activity", "/Activities", "Aktivitet", URN_ACTIVITY);
-		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Activities", null));
-		return type;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((course == null) ? 0 : course.hashCode());
+		result = prime * result + ((dateInterval == null) ? 0 : dateInterval.hashCode());
+		result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
+		result = prime * result + ((groupAssignments == null) ? 0 : groupAssignments.hashCode());
+		result = prime * result + ((parentactivity == null) ? 0 : parentactivity.hashCode());
+		result = prime * result + ((schoolUnit == null) ? 0 : schoolUnit.hashCode());
+		result = prime * result + ((studentAssignments == null) ? 0 : studentAssignments.hashCode());
+		result = prime * result + ((teacherAssignments == null) ? 0 : teacherAssignments.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
 	}
 }

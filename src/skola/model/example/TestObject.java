@@ -27,6 +27,7 @@ import skola.model.scim2.core.element.Name;
 import skola.model.scim2.extension.Activity;
 import skola.model.scim2.extension.CalendarEvent;
 import skola.model.scim2.extension.Person;
+import skola.model.scim2.extension.element.Assignment;
 import skola.model.scim2.extension.element.ContactPerson;
 import skola.model.scim2.extension.element.DateRange;
 import skola.model.scim2.extension.element.DateRangeSpan;
@@ -40,7 +41,6 @@ import skola.model.scim2.extension.element.GroupReference;
 import skola.model.scim2.extension.element.Member;
 import skola.model.scim2.extension.element.MetaExtended;
 import skola.model.scim2.extension.element.Phone;
-import skola.model.scim2.extension.element.Reference;
 import skola.model.scim2.extension.element.SchoolNode;
 import skola.model.scim2.extension.element.StudentNode;
 import skola.model.scim2.extension.element.TeacherAssignment;
@@ -164,19 +164,19 @@ public class TestObject {
 		String[] schemas = { URN_ACTIVITY };
 		activity.setSchemas(schemas);
 		activity.setDisplayName("MATMAT01 N3A");
-		activity.setSchool("32c231ff-7f76-453a-919d-413861904646");
+		activity.setSchoolUnit("32c231ff-7f76-453a-919d-413861904646");
 		activity.setCourse("MATMAT01");
 		activity.setType("course");
 		activity.setDateInterval(new DateRange("2016-02-25", "2016-04-15"));
-		activity.addGroup(new GroupReference("e9e30dba-f08f-4109-8486-d5c6a331660a",
-				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "MATMAT01 N3A", GroupType.GROUP.toString()));
-		activity.addStudent(new Reference("2819c223-7f76-453a-919d-413861904646",
-				BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646", "Barbara Jensen"));
-		activity.addStudent(new Reference("902c246b-6245-4190-8e05-00816be7344a",
-				BASE_URI + "/Users/902c246b-6245-4190-8e05-00816be7344a", "Mandy Pepperidge"));
+		activity.addGroupAssignment(new Assignment("e9e30dba-f08f-4109-8486-d5c6a331660a",
+				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "MATMAT01 N3A", null));
+		activity.addStudentAssignment(new Assignment("2819c223-7f76-453a-919d-413861904646",
+				BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646", "Barbara Jensen", null));
+		activity.addStudentAssignment(new Assignment("902c246b-6245-4190-8e05-00816be7344a",
+				BASE_URI + "/Users/902c246b-6245-4190-8e05-00816be7344a", "Mandy Pepperidge", null));
 		activity.addTeacherAssignment(new TeacherAssignment("87dda8fa-7f76-453a-919d-413861904646",
 				"https://example.com/v2/Users/87dda8fa-7f76-453a-919d-413861904646", "Palle Girgensohn",
-				new DateRange("2016-02-25", "2016-04-15"), 3600));
+				new DateRange("2016-02-25", "2016-04-15"), 600));
 		activity.setParentactivity("9823a472-7f76-453a-919d-413861904646");
 		activity.setMeta(new Meta(ResourceTypeStr.ACTIVITY.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
 				BASE_URI + "/Activities/e9e30dba-f08f-4109-8486-d5c6a331660a", activity.hashCode() + ""));
