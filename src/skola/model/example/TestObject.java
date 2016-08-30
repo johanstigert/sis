@@ -31,7 +31,6 @@ import skola.model.scim2.extension.element.Assignment;
 import skola.model.scim2.extension.element.Code.ActivityType;
 import skola.model.scim2.extension.element.ContactPerson;
 import skola.model.scim2.extension.element.DateRange;
-import skola.model.scim2.extension.element.DateRangeSpan;
 import skola.model.scim2.extension.element.DateTimeRange;
 import skola.model.scim2.extension.element.Enum.NativeLanguage;
 import skola.model.scim2.extension.element.Enum.SchoolForm;
@@ -49,6 +48,7 @@ import skola.model.scim2.group.Course;
 import skola.model.scim2.group.IGroupType;
 import skola.model.scim2.user.Employee;
 import skola.model.scim2.user.Student;
+import skola.model.scim2.user.element.Employment;
 
 /**
  * 
@@ -118,12 +118,9 @@ public class TestObject {
 		employee.setSchemas(schemas);
 		employee.setName(new Name("Ms. Barbara J Jensen, III", "Jensen", "Barbara", "Jane", null, null));
 		employee.addMail(new Email("barbar@home.se", "work", true));
-		employee.addDateSpan(new DateRangeSpan("1970-01-23", "2013-06-30", 1200));
-		employee.addDateSpan(new DateRangeSpan("2014-01-23", null, 600));
-		employee.setParentGroup(new GroupReference("e9e30dba-f08f-4109-8486-d5c6a331660a",
-				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "Jönköpings kommun",
-				GroupType.SCHOOLUNIT.toString()));
-		employee.setSignature("PAK");
+		GroupReference schoolUnit = new GroupReference("{asd56-dfgdrt-asd7e-wea234}",
+				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "SkolnamnX", "SchoolUnit");
+		employee.addEmployment(new Employment(100, new DateRange("2016-01-01", null), true, schoolUnit, "barb"));
 		List<Phone> phones = new ArrayList<Phone>();
 		phones.add(new Phone("0754-853345", "sms"));
 		phones.add(new Phone("031547895", ""));

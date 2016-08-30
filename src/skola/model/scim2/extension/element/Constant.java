@@ -13,6 +13,7 @@ public class Constant {
 
 	public static final String URN_USER = "urn:ietf:params:scim:schemas:core:2.0:User";
 	public static final String URN_PERSON = "urn:scim:schemas:extension:skola:person:1.0";
+	public static final String URN_EMPLOYMENT = "urn:scim:schemas:extension:skola:employment:1.0";
 	public static final String URN_STUDENT = "urn:scim:schemas:extension:skola:student:1.0";
 	public static final String URN_EMPLOYEE = "urn:scim:schemas:extension:skola:employee:1.0";
 

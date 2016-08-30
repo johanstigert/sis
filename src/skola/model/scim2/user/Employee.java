@@ -2,6 +2,7 @@ package skola.model.scim2.user;
 
 import static skola.model.scim2.extension.element.Constant.BASE_URI;
 import static skola.model.scim2.extension.element.Constant.URN_EMPLOYEE;
+import static skola.model.scim2.extension.element.Constant.URN_EMPLOYMENT;
 import static skola.model.scim2.extension.element.Constant.URN_PERSON;
 import static skola.model.scim2.extension.element.Constant.URN_STUDENT;
 
@@ -17,69 +18,28 @@ import skola.model.scim2.core.schema.Attribute;
 import skola.model.scim2.core.schema.ResourceType;
 import skola.model.scim2.core.schema.Schema;
 import skola.model.scim2.extension.Person;
-import skola.model.scim2.extension.element.DateRangeSpan;
-import skola.model.scim2.extension.element.GroupReference;
+import skola.model.scim2.user.element.Employment;
 
 /**
  * 
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "schemas", "id", "externalId", "userName", "name", "emails", "employeeType", "datespans",
-		URN_PERSON, "parentGroup", "groups", "signature", "meta" })
+@JsonPropertyOrder({ "schemas", "id", "externalId", "userName", "name", "emails", URN_PERSON, URN_EMPLOYMENT, "groups",
+		"meta" })
 public class Employee extends User {
-
-	private String employeeType;
-	private List<DateRangeSpan> datespans;
-	private GroupReference parentGroup;
-	private String signature;
 
 	@JsonProperty(URN_PERSON)
 	private Person person;
+
+	@JsonProperty(URN_EMPLOYMENT)
+	private List<Employment> employments;
 
 	public Employee() {
 	}
 
 	public Employee(String id) {
 		super(id);
-	}
-
-	public String getEmployeeType() {
-		return employeeType;
-	}
-
-	public void setEmployeeType(String employeeType) {
-		this.employeeType = employeeType;
-	}
-
-	public List<DateRangeSpan> getDatespans() {
-		return datespans;
-	}
-
-	public void setDatespans(List<DateRangeSpan> dateSpans) {
-		this.datespans = dateSpans;
-	}
-
-	public void addDateSpan(DateRangeSpan datespan) {
-		if (this.datespans == null)
-			datespans = new ArrayList<DateRangeSpan>();
-		datespans.add(datespan);
-	}
-
-	public GroupReference getParentGroup() {
-		return parentGroup;
-	}
-
-	public void setParentGroup(GroupReference parentGroup) {
-		this.parentGroup = parentGroup;
-	}
-
-	public String getSignature() {
-		return signature;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
 	}
 
 	public Person getPerson() {
@@ -90,47 +50,18 @@ public class Employee extends User {
 		this.person = person;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((datespans == null) ? 0 : datespans.hashCode());
-		result = prime * result + ((employeeType == null) ? 0 : employeeType.hashCode());
-		result = prime * result + ((parentGroup == null) ? 0 : parentGroup.hashCode());
-		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
-		return result;
+	public List<Employment> getEmployments() {
+		return employments;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		if (datespans == null) {
-			if (other.datespans != null)
-				return false;
-		} else if (!datespans.equals(other.datespans))
-			return false;
-		if (employeeType == null) {
-			if (other.employeeType != null)
-				return false;
-		} else if (!employeeType.equals(other.employeeType))
-			return false;
-		if (parentGroup == null) {
-			if (other.parentGroup != null)
-				return false;
-		} else if (!parentGroup.equals(other.parentGroup))
-			return false;
-		if (signature == null) {
-			if (other.signature != null)
-				return false;
-		} else if (!signature.equals(other.signature))
-			return false;
-		return true;
+	public void setEmployments(List<Employment> employments) {
+		this.employments = employments;
+	}
+
+	public void addEmployment(Employment employment) {
+		if (this.employments == null)
+			this.employments = new ArrayList<Employment>();
+		this.employments.add(employment);
 	}
 
 	public static Schema getSchema() {
@@ -236,5 +167,36 @@ public class Employee extends User {
 		ResourceType type = new ResourceType("Employee", "/Employees", "Anställd", URN_EMPLOYEE);
 		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Employees", null));
 		return type;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((employments == null) ? 0 : employments.hashCode());
+		result = prime * result + ((person == null) ? 0 : person.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		if (employments == null) {
+			if (other.employments != null)
+				return false;
+		} else if (!employments.equals(other.employments))
+			return false;
+		if (person == null) {
+			if (other.person != null)
+				return false;
+		} else if (!person.equals(other.person))
+			return false;
+		return true;
 	}
 }
