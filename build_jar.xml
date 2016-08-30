@@ -4,10 +4,7 @@
 	<!-- General properties -->
 
 	<property name="project.name" value="skola-model" />
-
 	<property name="jar.name" value="skola-model.jar" />
-<!--	<property name="jar.manifest.main-class" value="main.VklassMain" /> -->
-<!--	<property name="jar.manifest.built-by" value="TimeEdit" /> -->
 
 	<!-- Standard properties -->
 
