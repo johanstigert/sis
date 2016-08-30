@@ -14,6 +14,7 @@ import skola.model.scim2.core.Meta;
 import skola.model.scim2.core.Resource;
 import skola.model.scim2.core.schema.ResourceType;
 import skola.model.scim2.extension.element.Assignment;
+import skola.model.scim2.extension.element.Code.ActivityType;
 import skola.model.scim2.extension.element.DateRange;
 import skola.model.scim2.extension.element.TeacherAssignment;
 
@@ -22,27 +23,22 @@ import skola.model.scim2.extension.element.TeacherAssignment;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "schemas", "id", "externalId", "displayName", "school", "course", "type", URN_DATUMINTERVALL,
-		"groups", "students", "teacherAssignments", "parentactivity", "meta" })
+@JsonPropertyOrder({ "schemas", "id", "externalId", "displayName", "schoolUnit", "course", "type", URN_DATUMINTERVALL,
+		"groupAssignments", "studentAssignments", "teacherAssignments", "timePlanned", "parentactivity", "meta" })
 public class Activity extends Resource {
-
-	public static ResourceType getResourceType() {
-		ResourceType type = new ResourceType("Activity", "/Activities", "Aktivitet", URN_ACTIVITY);
-		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Activities", null));
-		return type;
-	}
 
 	private String displayName;
 	private String schoolUnit;
 	private String course;
 
-	private String type;
+	private ActivityType activityType;
 	@JsonProperty(URN_DATUMINTERVALL)
 	private DateRange dateInterval;
 	private List<Assignment> groupAssignments;
 	private List<Assignment> studentAssignments;
 	private List<TeacherAssignment> teacherAssignments;
 
+	private int timePlanned;
 	private String parentactivity; // TODO: Flera ParentActivity?
 
 	public Activity() {
@@ -102,8 +98,8 @@ public class Activity extends Resource {
 		return teacherAssignments;
 	}
 
-	public String getType() {
-		return type;
+	public ActivityType getActivityType() {
+		return activityType;
 	}
 
 	public void setCourse(String course) {
@@ -138,8 +134,22 @@ public class Activity extends Resource {
 		this.teacherAssignments = teacherAssignments;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setActivityType(ActivityType activityType) {
+		this.activityType = activityType;
+	}
+
+	public int getTimePlanned() {
+		return timePlanned;
+	}
+
+	public void setTimePlanned(int timePlanned) {
+		this.timePlanned = timePlanned;
+	}
+
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("Activity", "/Activities", "Aktivitet", URN_ACTIVITY);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Activities", null));
+		return type;
 	}
 
 	@Override
@@ -191,10 +201,10 @@ public class Activity extends Resource {
 				return false;
 		} else if (!teacherAssignments.equals(other.teacherAssignments))
 			return false;
-		if (type == null) {
-			if (other.type != null)
+		if (activityType == null) {
+			if (other.activityType != null)
 				return false;
-		} else if (!type.equals(other.type))
+		} else if (!activityType.equals(other.activityType))
 			return false;
 		return true;
 	}
@@ -211,7 +221,7 @@ public class Activity extends Resource {
 		result = prime * result + ((schoolUnit == null) ? 0 : schoolUnit.hashCode());
 		result = prime * result + ((studentAssignments == null) ? 0 : studentAssignments.hashCode());
 		result = prime * result + ((teacherAssignments == null) ? 0 : teacherAssignments.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((activityType == null) ? 0 : activityType.hashCode());
 		return result;
 	}
 }

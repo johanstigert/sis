@@ -28,6 +28,7 @@ import skola.model.scim2.extension.Activity;
 import skola.model.scim2.extension.CalendarEvent;
 import skola.model.scim2.extension.Person;
 import skola.model.scim2.extension.element.Assignment;
+import skola.model.scim2.extension.element.Code.ActivityType;
 import skola.model.scim2.extension.element.ContactPerson;
 import skola.model.scim2.extension.element.DateRange;
 import skola.model.scim2.extension.element.DateRangeSpan;
@@ -166,7 +167,7 @@ public class TestObject {
 		activity.setDisplayName("MATMAT01 N3A");
 		activity.setSchoolUnit("32c231ff-7f76-453a-919d-413861904646");
 		activity.setCourse("MATMAT01");
-		activity.setType("course");
+		activity.setActivityType(ActivityType.Övrigt);
 		activity.setDateInterval(new DateRange("2016-02-25", "2016-04-15"));
 		activity.addGroupAssignment(new Assignment("e9e30dba-f08f-4109-8486-d5c6a331660a",
 				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "MATMAT01 N3A", null));
