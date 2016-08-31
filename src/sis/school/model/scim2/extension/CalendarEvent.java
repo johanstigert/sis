@@ -12,7 +12,9 @@ import sis.school.model.scim2.core.Meta;
 import sis.school.model.scim2.core.Resource;
 import sis.school.model.scim2.core.schema.ResourceType;
 import sis.school.model.scim2.extension.element.DateTimeRange;
+import sis.school.model.scim2.extension.element.Equipment;
 import sis.school.model.scim2.extension.element.Exception;
+import sis.school.model.scim2.extension.element.Room;
 
 /**
  * 
@@ -30,8 +32,8 @@ public class CalendarEvent extends Resource {
 	private DateTimeRange dateTimeRange;
 	private int teachingLengthTeacher;
 	private int teachingLengthGroup;
-	private List<String> rooms;
-	private List<String> resource;
+	private List<Room> rooms;
+	private List<Equipment> resource;
 	private List<Exception> studentExceptions;
 	private List<Exception> teacherExceptions;
 	private List<Exception> groupExceptions;
@@ -83,31 +85,31 @@ public class CalendarEvent extends Resource {
 		this.teachingLengthGroup = teachingLengthGroup;
 	}
 
-	public List<String> getRooms() {
+	public List<Room> getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(List<String> rooms) {
+	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
 
-	public void addRoom(String room) {
+	public void addRoom(Room room) {
 		if (this.rooms == null)
-			this.rooms = new ArrayList<String>();
+			this.rooms = new ArrayList<Room>();
 		this.rooms.add(room);
 	}
 
-	public List<String> getResource() {
+	public List<Equipment> getResource() {
 		return resource;
 	}
 
-	public void setResource(List<String> resource) {
+	public void setResource(List<Equipment> resource) {
 		this.resource = resource;
 	}
 
-	public void addResource(String resource) {
+	public void addResource(Equipment resource) {
 		if (this.resource == null)
-			this.resource = new ArrayList<String>();
+			this.resource = new ArrayList<Equipment>();
 		this.resource.add(resource);
 	}
 
