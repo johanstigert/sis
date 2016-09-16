@@ -1,25 +1,20 @@
-package sis.school.model.scim2.extension.element;
+package sis.school.model.scim2.extension.code;
 
-/**
- * 
- * ©TimeEdit 2016
- *
- */
-public class Enum {
+public class Code {
 
-	public enum NativeLanguage {
-		SV("sv"), EN("en");
+	public enum ActivityType {
+		Undervisning, Elevaktivitet, // Frånvaro, närvaro
+		Läraraktivitet, // Arbetstid
+		Övrigt; // Läxhjälp, lunch, bokning
+	}
 
-		private final String language;
+	public enum Gender {
+		male, female;
+	}
 
-		private NativeLanguage(String language) {
-			this.language = language;
-		}
-
-		public String toString() {
-			return language;
-		}
-	};
+	public enum SchoolGroupType {
+		Undervisning, Klass, Mentor, Övrigt;
+	}
 
 	public enum SchoolType {
 		GRUNDSKOLA("Grundskola"), GYMNASIESKOLA("Gymnasieskola"), VUXENUTBILDNING("Vuxenutbildning"), FÖRSKOLA(
@@ -29,6 +24,16 @@ public class Enum {
 
 		private SchoolType(String schoolType) {
 			this.schoolType = schoolType;
+		}
+
+		public static SchoolType create(String schoolType) {
+			switch (schoolType) {
+			case "Grundskola":
+				return SchoolType.GRUNDSKOLA;
+			case "Gymnasieskola":
+				return SchoolType.GYMNASIESKOLA;
+			}
+			return null;
 		}
 
 		public String toString() {

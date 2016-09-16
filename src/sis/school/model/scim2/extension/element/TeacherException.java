@@ -8,19 +8,19 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  *
  */
 @JsonPropertyOrder({ "participates", "teachingLengthStudent", "dateTimeRange", "value", "$ref", "display" })
-public class Exception extends Reference {
+public class TeacherException extends Reference {
 
 	private boolean participates;
-	private int teachingLengthStudent;
+	private int teachingLengthTeacher;
 	private DateTimeRange dateTimeRange;
 
-	public Exception() {
+	public TeacherException() {
 	}
 
-	public Exception(boolean participates, int teachingLengthStudent, DateTimeRange dateTimeRange) {
+	public TeacherException(boolean participates, int teachingLengthTeacher, DateTimeRange dateTimeRange) {
 		super();
 		this.participates = participates;
-		this.teachingLengthStudent = teachingLengthStudent;
+		this.teachingLengthTeacher = teachingLengthTeacher;
 		this.dateTimeRange = dateTimeRange;
 	}
 
@@ -32,12 +32,12 @@ public class Exception extends Reference {
 		this.participates = participates;
 	}
 
-	public int getTeachingLengthStudent() {
-		return teachingLengthStudent;
+	public int getTeachingLengthTeacher() {
+		return teachingLengthTeacher;
 	}
 
-	public void setTeachingLengthStudent(int teachingLengthStudent) {
-		this.teachingLengthStudent = teachingLengthStudent;
+	public void setTeachingLengthTeacher(int teachingLengthTeacher) {
+		this.teachingLengthTeacher = teachingLengthTeacher;
 	}
 
 	public DateTimeRange getDateTimeRange() {
@@ -54,7 +54,7 @@ public class Exception extends Reference {
 		int result = super.hashCode();
 		result = prime * result + ((dateTimeRange == null) ? 0 : dateTimeRange.hashCode());
 		result = prime * result + (participates ? 1231 : 1237);
-		result = prime * result + teachingLengthStudent;
+		result = prime * result + teachingLengthTeacher;
 		return result;
 	}
 
@@ -66,7 +66,7 @@ public class Exception extends Reference {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Exception other = (Exception) obj;
+		TeacherException other = (TeacherException) obj;
 		if (dateTimeRange == null) {
 			if (other.dateTimeRange != null)
 				return false;
@@ -74,7 +74,7 @@ public class Exception extends Reference {
 			return false;
 		if (participates != other.participates)
 			return false;
-		if (teachingLengthStudent != other.teachingLengthStudent)
+		if (teachingLengthTeacher != other.teachingLengthTeacher)
 			return false;
 		return true;
 	}

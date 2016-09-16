@@ -1,8 +1,7 @@
-package sis.school.model.scim2.user;
+package sis.school.model.scim2.extension;
 
 import static sis.school.model.scim2.extension.element.Constant.BASE_URI;
-import static sis.school.model.scim2.extension.element.Constant.URN_PERSON;
-import static sis.school.model.scim2.extension.element.Constant.URN_STUDENT;
+import static sis.school.model.scim2.extension.element.Constant.URN_USER_EXTENDED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,53 +14,39 @@ import sis.school.model.scim2.core.User;
 import sis.school.model.scim2.core.schema.Attribute;
 import sis.school.model.scim2.core.schema.ResourceType;
 import sis.school.model.scim2.core.schema.Schema;
-import sis.school.model.scim2.extension.Person;
-import sis.school.model.scim2.extension.element.StudentNode;
+import sis.school.model.scim2.extension.extension.UserNode;
 
 /**
  * 
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "schemas", "id", "externalId", "userName", "name", "emails", "groups", URN_PERSON, URN_STUDENT,
-		"meta" })
-public class Student extends User {
+@JsonPropertyOrder({ "schemas", "id", "externalId", "userName", "name", "emails", "groups", URN_USER_EXTENDED, "meta" })
+public class UserExtended extends User {
 
-	@JsonProperty(URN_PERSON)
-	private Person person;
+	@JsonProperty(URN_USER_EXTENDED)
+	private UserNode user;
 
-	@JsonProperty(URN_STUDENT)
-	private StudentNode student;
-
-	public Student() {
+	public UserExtended() {
 	}
 
-	public Student(String id) {
+	public UserExtended(String id) {
 		super(id);
 	}
 
-	public Person getPerson() {
-		return person;
+	public UserNode getUser() {
+		return user;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	public StudentNode getStudent() {
-		return student;
-	}
-
-	public void setStudent(StudentNode student) {
-		this.student = student;
+	public void setUser(UserNode user) {
+		this.user = user;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((person == null) ? 0 : person.hashCode());
-		result = prime * result + ((student == null) ? 0 : student.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -73,30 +58,25 @@ public class Student extends User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Student other = (Student) obj;
-		if (person == null) {
-			if (other.person != null)
+		UserExtended other = (UserExtended) obj;
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!person.equals(other.person))
-			return false;
-		if (student == null) {
-			if (other.student != null)
-				return false;
-		} else if (!student.equals(other.student))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
 
 	public static Schema getSchema() {
 		Schema schema = new Schema();
-		schema.setId(URN_STUDENT);
-		schema.setName("Student");
-		schema.setDescription("Schema representation of a student");
+		schema.setId(URN_USER_EXTENDED);
+		schema.setName("UserExtended");
+		schema.setDescription("Schema representation of a user");
 
-		schema.addAttribute(new Attribute("id", "string", false, "Unique identifier for the student.", false, null,
+		schema.addAttribute(new Attribute("id", "string", false, "Unique identifier for the user.", false, null, false,
+				null, "immutable", "default", "global"));
+		schema.addAttribute(new Attribute("externalId", "string", false, "Unique identifier for the user.", false, null,
 				false, null, "immutable", "default", "global"));
-		schema.addAttribute(new Attribute("externalId", "string", false, "Unique identifier for the student.", false,
-				null, false, null, "immutable", "default", "global"));
 		schema.addAttribute(new Attribute("userName", "string", false, "", true, null, false, null, "readWrite",
 				"default", "none"));
 
@@ -145,7 +125,7 @@ public class Student extends User {
 		sub5.add(
 				new Attribute("school", "complex", false, "", true, sub4, false, null, "immutable", "default", "none"));
 
-		schema.addAttribute(new Attribute(URN_STUDENT, "complex", true, "", true, sub5, false, null, "immutable",
+		schema.addAttribute(new Attribute(URN_USER_EXTENDED, "complex", true, "", true, sub5, false, null, "immutable",
 				"default", "none"));
 
 		List<Attribute> sub6 = new ArrayList<Attribute>();
@@ -158,15 +138,15 @@ public class Student extends User {
 				new Attribute("phones", "complex", false, "", true, sub7, false, null, "readWrite", "default", "none"));
 		sub6.add(new Attribute("protected", "boolean", false, "", true, null, false, null, "readWrite", "default",
 				"none"));
-		schema.addAttribute(new Attribute(URN_PERSON, "complex", true, "", true, sub6, false, null, "immutable",
+		schema.addAttribute(new Attribute(URN_USER_EXTENDED, "complex", true, "", true, sub6, false, null, "immutable",
 				"default", "none"));
 
 		return schema;
 	}
 
 	public static ResourceType getResourceType() {
-		ResourceType type = new ResourceType("Student", "/Students", "Student", URN_STUDENT);
-		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Students", null));
+		ResourceType type = new ResourceType("User", "/Users", "User", URN_USER_EXTENDED);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Users", null));
 		return type;
 	}
 }

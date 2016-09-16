@@ -1,7 +1,5 @@
 package sis.school.model.scim2.extension.element;
 
-import static sis.school.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "value", "$ref", "display", URN_DATUMINTERVALL })
+@JsonPropertyOrder({ "value", "$ref", "display", "dateRanges" })
 public class Member {
 
 	private String value;
@@ -21,8 +19,7 @@ public class Member {
 	@JsonProperty("$ref")
 	private String ref;
 	private String display;
-	@JsonProperty(URN_DATUMINTERVALL)
-	private List<DateRange> dateIntervals;
+	private List<DateRange> dateRanges;
 
 	public Member() {
 	}
@@ -51,25 +48,25 @@ public class Member {
 		this.display = display;
 	}
 
-	public List<DateRange> getDateIntervals() {
-		return dateIntervals;
+	public List<DateRange> getDateRanges() {
+		return dateRanges;
 	}
 
-	public void setDateIntervals(List<DateRange> dateIntervals) {
-		this.dateIntervals = dateIntervals;
+	public void setDateIntervals(List<DateRange> dateRanges) {
+		this.dateRanges = dateRanges;
 	}
 
-	public void addDateInterval(DateRange interval) {
-		if (this.dateIntervals == null)
-			this.dateIntervals = new ArrayList<DateRange>();
-		this.dateIntervals.add(interval);
+	public void addDateInterval(DateRange dateRange) {
+		if (this.dateRanges == null)
+			this.dateRanges = new ArrayList<DateRange>();
+		this.dateRanges.add(dateRange);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dateIntervals == null) ? 0 : dateIntervals.hashCode());
+		result = prime * result + ((dateRanges == null) ? 0 : dateRanges.hashCode());
 		result = prime * result + ((display == null) ? 0 : display.hashCode());
 		result = prime * result + ((ref == null) ? 0 : ref.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
@@ -85,10 +82,10 @@ public class Member {
 		if (getClass() != obj.getClass())
 			return false;
 		Member other = (Member) obj;
-		if (dateIntervals == null) {
-			if (other.dateIntervals != null)
+		if (dateRanges == null) {
+			if (other.dateRanges != null)
 				return false;
-		} else if (!dateIntervals.equals(other.dateIntervals))
+		} else if (!dateRanges.equals(other.dateRanges))
 			return false;
 		if (display == null) {
 			if (other.display != null)

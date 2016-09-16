@@ -1,7 +1,5 @@
 package sis.school.model.scim2.extension.element;
 
-import static sis.school.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -15,7 +13,6 @@ public class Responsible {
 	@JsonProperty("$ref")
 	private String ref;
 	private String formatted;
-	@JsonProperty(URN_DATUMINTERVALL)
 	private DateRange dateRange;
 
 	public Responsible() {

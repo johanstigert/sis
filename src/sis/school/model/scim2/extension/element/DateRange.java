@@ -8,12 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * 
  * ©TimeEdit 2016
  *
  */
+@JsonPropertyOrder({ "start", "end" })
 public class DateRange {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = TIMEZONE)
@@ -29,17 +31,13 @@ public class DateRange {
 		this.end = end;
 	}
 
-	public DateRange(String startYyyymmdd, String endYyyymmdd) {
+	public DateRange(String startYyyymmdd, String endYyyymmdd) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		try {
-			if (startYyyymmdd != null) {
-				this.start = sdf.parse(startYyyymmdd);
-			}
-			if (endYyyymmdd != null) {
-				this.end = sdf.parse(endYyyymmdd);
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if (startYyyymmdd != null) {
+			this.start = sdf.parse(startYyyymmdd);
+		}
+		if (endYyyymmdd != null) {
+			this.end = sdf.parse(endYyyymmdd);
 		}
 	}
 

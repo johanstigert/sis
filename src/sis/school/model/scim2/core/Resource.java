@@ -54,7 +54,8 @@ public abstract class Resource {
 	}
 
 	public enum ResourceTypeStr {
-		GROUP("Group"), EMPLOYEE("Employee"), STUDENT("Student"), ACTIVITY("Activity"), CALENDAREVENT("CalendarEvent");
+		GROUP("Group"), USER("USER"), ACTIVITY("Activity"), CALENDAREVENT("CalendarEvent"), EMPLOYMENT(
+				"Employment"), SUBJECT("Subject"), COURSE("Course"), ROOM("Room"), RESOURCE("Resource");
 
 		private final String type;
 

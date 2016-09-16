@@ -1,7 +1,5 @@
 package sis.school.model.scim2.extension.element;
 
-import static sis.school.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -9,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "value", "$ref", "display", URN_DATUMINTERVALL, "timeplanned" })
+@JsonPropertyOrder({ "value", "$ref", "display", "dateRange", "timeplanned" })
 public class TeacherAssignment extends Assignment {
 
 	private int timeplanned;

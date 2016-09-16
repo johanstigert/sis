@@ -1,7 +1,5 @@
 package sis.school.model.scim2.extension.element;
 
-import static sis.school.model.scim2.extension.element.Constant.URN_DATUMINTERVALL;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -10,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "value", "$ref", "display", URN_DATUMINTERVALL })
+@JsonPropertyOrder({ "value", "$ref", "display", "dateRange" })
 public class Assignment {
 
 	private String value;
@@ -19,8 +17,7 @@ public class Assignment {
 	private String ref;
 	private String display;
 
-	@JsonProperty(URN_DATUMINTERVALL)
-	private DateRange dateInterval;
+	private DateRange dateRange;
 
 	public Assignment() {
 	}
@@ -29,7 +26,7 @@ public class Assignment {
 		this.value = value;
 		this.ref = ref;
 		this.display = display;
-		this.dateInterval = dateInterval;
+		this.dateRange = dateInterval;
 	}
 
 	public String getValue() {
@@ -57,18 +54,18 @@ public class Assignment {
 	}
 
 	public DateRange getDateInterval() {
-		return dateInterval;
+		return dateRange;
 	}
 
 	public void setDateInterval(DateRange dateInterval) {
-		this.dateInterval = dateInterval;
+		this.dateRange = dateInterval;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dateInterval == null) ? 0 : dateInterval.hashCode());
+		result = prime * result + ((dateRange == null) ? 0 : dateRange.hashCode());
 		result = prime * result + ((display == null) ? 0 : display.hashCode());
 		result = prime * result + ((ref == null) ? 0 : ref.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
@@ -84,10 +81,10 @@ public class Assignment {
 		if (getClass() != obj.getClass())
 			return false;
 		Assignment other = (Assignment) obj;
-		if (dateInterval == null) {
-			if (other.dateInterval != null)
+		if (dateRange == null) {
+			if (other.dateRange != null)
 				return false;
-		} else if (!dateInterval.equals(other.dateInterval))
+		} else if (!dateRange.equals(other.dateRange))
 			return false;
 		if (display == null) {
 			if (other.display != null)

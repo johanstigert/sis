@@ -12,31 +12,31 @@ import sis.school.model.scim2.core.Meta;
 import sis.school.model.scim2.core.Resource;
 import sis.school.model.scim2.core.schema.ResourceType;
 import sis.school.model.scim2.extension.element.DateTimeRange;
-import sis.school.model.scim2.extension.element.Equipment;
 import sis.school.model.scim2.extension.element.Exception;
-import sis.school.model.scim2.extension.element.Room;
+import sis.school.model.scim2.extension.element.Reference;
+import sis.school.model.scim2.extension.element.TeacherException;
 
 /**
  * 
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "schemas", "id", "externalId", "activity", "cancelled", "comment", "dateTimeRange",
-		"teachingLengthTeacher", "teachingLengthGroup", "rooms", "resource", "studentExceptions", "teacherExceptions",
-		"groupExceptions", "meta" })
+@JsonPropertyOrder({ "schemas", "id", "cancelled", "comment", "dateTimeRange", "teachingLengthTeacher",
+		"teachingLengthStudent", "rooms", "resources", "studentExceptions", "teacherExceptions", "groupExceptions",
+		"activity", "meta" })
 public class CalendarEvent extends Resource {
 
-	private String activity;
 	private boolean cancelled;
 	private String comment;
 	private DateTimeRange dateTimeRange;
 	private int teachingLengthTeacher;
-	private int teachingLengthGroup;
-	private List<Room> rooms;
-	private List<Equipment> resource;
+	private int teachingLengthStudent;
+	private List<Reference> rooms;
+	private List<Reference> resources;
 	private List<Exception> studentExceptions;
-	private List<Exception> teacherExceptions;
+	private List<TeacherException> teacherExceptions;
 	private List<Exception> groupExceptions;
+	private Reference activity;
 
 	public CalendarEvent() {
 	}
@@ -45,11 +45,21 @@ public class CalendarEvent extends Resource {
 		super(id);
 	}
 
-	public String getActivity() {
-		return activity;
-	}
-
-	public void setActivity(String activity) {
+	public CalendarEvent(boolean cancelled, String comment, DateTimeRange dateTimeRange, int teachingLengthTeacher,
+			int teachingLengthStudent, List<Reference> rooms, List<Reference> resources,
+			List<Exception> studentExceptions, List<TeacherException> teacherExceptions,
+			List<Exception> groupExceptions, Reference activity) {
+		super();
+		this.cancelled = cancelled;
+		this.comment = comment;
+		this.dateTimeRange = dateTimeRange;
+		this.teachingLengthTeacher = teachingLengthTeacher;
+		this.teachingLengthStudent = teachingLengthStudent;
+		this.rooms = rooms;
+		this.resources = resources;
+		this.studentExceptions = studentExceptions;
+		this.teacherExceptions = teacherExceptions;
+		this.groupExceptions = groupExceptions;
 		this.activity = activity;
 	}
 
@@ -69,6 +79,14 @@ public class CalendarEvent extends Resource {
 		this.comment = comment;
 	}
 
+	public DateTimeRange getDateTimeRange() {
+		return dateTimeRange;
+	}
+
+	public void setDateTimeRange(DateTimeRange dateTimeRange) {
+		this.dateTimeRange = dateTimeRange;
+	}
+
 	public int getTeachingLengthTeacher() {
 		return teachingLengthTeacher;
 	}
@@ -77,40 +95,28 @@ public class CalendarEvent extends Resource {
 		this.teachingLengthTeacher = teachingLengthTeacher;
 	}
 
-	public int getTeachingLengthGroup() {
-		return teachingLengthGroup;
+	public int getTeachingLengthStudent() {
+		return teachingLengthStudent;
 	}
 
-	public void setTeachingLengthGroup(int teachingLengthGroup) {
-		this.teachingLengthGroup = teachingLengthGroup;
+	public void setTeachingLengthStudent(int teachingLengthStudent) {
+		this.teachingLengthStudent = teachingLengthStudent;
 	}
 
-	public List<Room> getRooms() {
+	public List<Reference> getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(List<Room> rooms) {
+	public void setRooms(List<Reference> rooms) {
 		this.rooms = rooms;
 	}
 
-	public void addRoom(Room room) {
-		if (this.rooms == null)
-			this.rooms = new ArrayList<Room>();
-		this.rooms.add(room);
+	public List<Reference> getResources() {
+		return resources;
 	}
 
-	public List<Equipment> getResource() {
-		return resource;
-	}
-
-	public void setResource(List<Equipment> resource) {
-		this.resource = resource;
-	}
-
-	public void addResource(Equipment resource) {
-		if (this.resource == null)
-			this.resource = new ArrayList<Equipment>();
-		this.resource.add(resource);
+	public void setResources(List<Reference> resources) {
+		this.resources = resources;
 	}
 
 	public List<Exception> getStudentExceptions() {
@@ -121,24 +127,12 @@ public class CalendarEvent extends Resource {
 		this.studentExceptions = studentExceptions;
 	}
 
-	public void addStudentExceptions(Exception exception) {
-		if (this.studentExceptions == null)
-			this.studentExceptions = new ArrayList<Exception>();
-		this.studentExceptions.add(exception);
-	}
-
-	public List<Exception> getTeacherExceptions() {
+	public List<TeacherException> getTeacherExceptions() {
 		return teacherExceptions;
 	}
 
-	public void setTeacherExceptions(List<Exception> teacherExceptions) {
+	public void setTeacherExceptions(List<TeacherException> teacherExceptions) {
 		this.teacherExceptions = teacherExceptions;
-	}
-
-	public void addTeacherExceptions(Exception exception) {
-		if (this.teacherExceptions == null)
-			this.teacherExceptions = new ArrayList<Exception>();
-		this.teacherExceptions.add(exception);
 	}
 
 	public List<Exception> getGroupExceptions() {
@@ -149,18 +143,42 @@ public class CalendarEvent extends Resource {
 		this.groupExceptions = groupExceptions;
 	}
 
+	public Reference getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Reference activity) {
+		this.activity = activity;
+	}
+
+	public void addRoom(Reference room) {
+		if (this.rooms == null)
+			this.rooms = new ArrayList<Reference>();
+		this.rooms.add(room);
+	}
+
+	public void addResource(Reference resource) {
+		if (this.resources == null)
+			this.resources = new ArrayList<Reference>();
+		this.resources.add(resource);
+	}
+
+	public void addStudentExceptions(Exception exception) {
+		if (this.studentExceptions == null)
+			this.studentExceptions = new ArrayList<Exception>();
+		this.studentExceptions.add(exception);
+	}
+
+	public void addTeacherExceptions(TeacherException exception) {
+		if (this.teacherExceptions == null)
+			this.teacherExceptions = new ArrayList<TeacherException>();
+		this.teacherExceptions.add(exception);
+	}
+
 	public void addGroupExceptions(Exception exception) {
 		if (this.groupExceptions == null)
 			this.groupExceptions = new ArrayList<Exception>();
 		this.groupExceptions.add(exception);
-	}
-
-	public DateTimeRange getDateTimeRange() {
-		return dateTimeRange;
-	}
-
-	public void setDateTimeRange(DateTimeRange dateTimeRange) {
-		this.dateTimeRange = dateTimeRange;
 	}
 
 	@Override
@@ -172,11 +190,11 @@ public class CalendarEvent extends Resource {
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime * result + ((dateTimeRange == null) ? 0 : dateTimeRange.hashCode());
 		result = prime * result + ((groupExceptions == null) ? 0 : groupExceptions.hashCode());
-		result = prime * result + ((resource == null) ? 0 : resource.hashCode());
+		result = prime * result + ((resources == null) ? 0 : resources.hashCode());
 		result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
 		result = prime * result + ((studentExceptions == null) ? 0 : studentExceptions.hashCode());
 		result = prime * result + ((teacherExceptions == null) ? 0 : teacherExceptions.hashCode());
-		result = prime * result + teachingLengthGroup;
+		result = prime * result + teachingLengthStudent;
 		result = prime * result + teachingLengthTeacher;
 		return result;
 	}
@@ -212,10 +230,10 @@ public class CalendarEvent extends Resource {
 				return false;
 		} else if (!groupExceptions.equals(other.groupExceptions))
 			return false;
-		if (resource == null) {
-			if (other.resource != null)
+		if (resources == null) {
+			if (other.resources != null)
 				return false;
-		} else if (!resource.equals(other.resource))
+		} else if (!resources.equals(other.resources))
 			return false;
 		if (rooms == null) {
 			if (other.rooms != null)
@@ -232,7 +250,7 @@ public class CalendarEvent extends Resource {
 				return false;
 		} else if (!teacherExceptions.equals(other.teacherExceptions))
 			return false;
-		if (teachingLengthGroup != other.teachingLengthGroup)
+		if (teachingLengthStudent != other.teachingLengthStudent)
 			return false;
 		if (teachingLengthTeacher != other.teachingLengthTeacher)
 			return false;

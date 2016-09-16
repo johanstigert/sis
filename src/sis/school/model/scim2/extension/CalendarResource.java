@@ -1,15 +1,20 @@
-package sis.school.model.scim2.extension.element;
+package sis.school.model.scim2.extension;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "name", "description" })
-public class Equipment {
+import sis.school.model.scim2.core.Resource;
+
+@JsonPropertyOrder({ "schemas", "id", "name", "description", "meta" })
+public class CalendarResource extends Resource {
 
 	private String id;
 	private String name;
 	private String description;
 
-	public Equipment(String id, String name, String description) {
+	public CalendarResource(String id) {
+	}
+
+	public CalendarResource(String id, String name, String description) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,7 +48,7 @@ public class Equipment {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -54,11 +59,11 @@ public class Equipment {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Equipment other = (Equipment) obj;
+		CalendarResource other = (CalendarResource) obj;
 		if (description == null) {
 			if (other.description != null)
 				return false;

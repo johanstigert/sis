@@ -1,21 +1,33 @@
-package sis.school.model.scim2.group;
+package sis.school.model.scim2.extension.extension.group;
 
 import java.util.List;
+
+import sis.school.model.scim2.extension.code.Code.SchoolType;
 
 /**
  * 
  * ©TimeEdit 2016
  *
  */
-// https://github.com/girgen/skolschema/blob/master/group-schoolunit.json
-public class SchoolUnit implements IGroupType {
+public class SchoolUnit {
 
 	private String schoolUnitCode;
-	private List<String> schoolTypes;
+	private List<SchoolType> schoolTypes;
 	private String ownerType;
+	private String ownerName;
 	private String municipalityCode;
 
 	public SchoolUnit() {
+	}
+
+	public SchoolUnit(String schoolUnitCode, List<SchoolType> schoolTypes, String ownerType, String ownerName,
+			String municipalityCode) {
+		super();
+		this.schoolUnitCode = schoolUnitCode;
+		this.schoolTypes = schoolTypes;
+		this.ownerType = ownerType;
+		this.ownerName = ownerName;
+		this.municipalityCode = municipalityCode;
 	}
 
 	public String getSchoolUnitCode() {
@@ -26,11 +38,11 @@ public class SchoolUnit implements IGroupType {
 		this.schoolUnitCode = schoolUnitCode;
 	}
 
-	public List<String> getSchoolTypes() {
+	public List<SchoolType> getSchoolTypes() {
 		return schoolTypes;
 	}
 
-	public void setSchoolTypes(List<String> schoolTypes) {
+	public void setSchoolTypes(List<SchoolType> schoolTypes) {
 		this.schoolTypes = schoolTypes;
 	}
 
@@ -40,6 +52,14 @@ public class SchoolUnit implements IGroupType {
 
 	public void setOwnerType(String ownerType) {
 		this.ownerType = ownerType;
+	}
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 
 	public String getMunicipalityCode() {
@@ -55,6 +75,7 @@ public class SchoolUnit implements IGroupType {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((municipalityCode == null) ? 0 : municipalityCode.hashCode());
+		result = prime * result + ((ownerName == null) ? 0 : ownerName.hashCode());
 		result = prime * result + ((ownerType == null) ? 0 : ownerType.hashCode());
 		result = prime * result + ((schoolTypes == null) ? 0 : schoolTypes.hashCode());
 		result = prime * result + ((schoolUnitCode == null) ? 0 : schoolUnitCode.hashCode());
@@ -74,6 +95,11 @@ public class SchoolUnit implements IGroupType {
 			if (other.municipalityCode != null)
 				return false;
 		} else if (!municipalityCode.equals(other.municipalityCode))
+			return false;
+		if (ownerName == null) {
+			if (other.ownerName != null)
+				return false;
+		} else if (!ownerName.equals(other.ownerName))
 			return false;
 		if (ownerType == null) {
 			if (other.ownerType != null)

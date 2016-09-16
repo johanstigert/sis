@@ -5,7 +5,7 @@ import java.util.List;
 
 import sis.school.model.scim2.core.element.Email;
 import sis.school.model.scim2.core.element.Name;
-import sis.school.model.scim2.extension.element.GroupReference;
+import sis.school.model.scim2.extension.element.Reference;
 
 /**
  * 
@@ -17,7 +17,7 @@ public class User extends Resource {
 	private String userName;
 	private Name name;
 	private List<Email> emails;
-	private List<GroupReference> groups;
+	private List<Reference> groups;
 
 	public User() {
 	}
@@ -56,17 +56,17 @@ public class User extends Resource {
 		this.emails.add(mail);
 	}
 
-	public List<GroupReference> getGroups() {
+	public List<Reference> getGroups() {
 		return groups;
 	}
 
-	public void setGroups(List<GroupReference> groups) {
+	public void setGroups(List<Reference> groups) {
 		this.groups = groups;
 	}
 
-	public void addGroup(GroupReference group) {
+	public void addGroup(Reference group) {
 		if (this.groups == null)
-			this.groups = new ArrayList<GroupReference>();
+			this.groups = new ArrayList<Reference>();
 		this.groups.add(group);
 	}
 

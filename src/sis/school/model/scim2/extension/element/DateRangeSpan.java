@@ -1,5 +1,6 @@
 package sis.school.model.scim2.extension.element;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -26,7 +27,7 @@ public class DateRangeSpan extends DateRange {
 	 *            yyyy-mm-dd
 	 * @param yearWorkTime
 	 */
-	public DateRangeSpan(String start, String end, int yearWorkTime) {
+	public DateRangeSpan(String start, String end, int yearWorkTime) throws ParseException {
 		super(start, end);
 		this.yearWorkTime = yearWorkTime;
 	}

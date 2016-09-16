@@ -1,41 +1,43 @@
-package sis.school.model.scim2.user.element;
+package sis.school.model.scim2.extension;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import sis.school.model.scim2.core.Resource;
 import sis.school.model.scim2.extension.element.DateRange;
-import sis.school.model.scim2.extension.element.GroupReference;
-import sis.school.model.scim2.user.Employee;
+import sis.school.model.scim2.extension.element.Reference;
 
 /**
  * 
  * @see Employee
  *
  */
-@JsonPropertyOrder({ "employmentPercent", "employmentTime", "isTeacher", "schoolUnit", "signature" })
-public class Employment {
+@JsonPropertyOrder({ "schemas", "id", "employmentTime", "employmentPercent", "hoursPerYear", "isTeacher", "employedAt",
+		"signature", "meta" })
+public class Employment extends Resource {
 
-	private int employmentPercent;
 	private DateRange employmentTime;
+	private int employmentPercent;
+	private int hoursPerYear;
 	private boolean isTeacher;
-	private GroupReference schoolUnit;
+	private Reference employedAt;
 	private String signature;
 
-	public Employment(int employmentPercent, DateRange employmentTime, boolean isTeacher, GroupReference schoolUnit,
-			String signature) {
+	public Employment() {
+	}
+
+	public Employment(String id) {
+		super(id);
+	}
+
+	public Employment(DateRange employmentTime, int employmentPercent, int hoursPerYear, boolean isTeacher,
+			Reference employedAt, String signature) {
 		super();
-		this.employmentPercent = employmentPercent;
 		this.employmentTime = employmentTime;
-		this.isTeacher = isTeacher;
-		this.schoolUnit = schoolUnit;
-		this.signature = signature;
-	}
-
-	public int getEmploymentPercent() {
-		return employmentPercent;
-	}
-
-	public void setEmploymentPercent(int employmentPercent) {
 		this.employmentPercent = employmentPercent;
+		this.hoursPerYear = hoursPerYear;
+		this.isTeacher = isTeacher;
+		this.employedAt = employedAt;
+		this.signature = signature;
 	}
 
 	public DateRange getEmploymentTime() {
@@ -46,6 +48,22 @@ public class Employment {
 		this.employmentTime = employmentTime;
 	}
 
+	public int getEmploymentPercent() {
+		return employmentPercent;
+	}
+
+	public void setEmploymentPercent(int employmentPercent) {
+		this.employmentPercent = employmentPercent;
+	}
+
+	public int getHoursPerYear() {
+		return hoursPerYear;
+	}
+
+	public void setHoursPerYear(int hoursPerYear) {
+		this.hoursPerYear = hoursPerYear;
+	}
+
 	public boolean isTeacher() {
 		return isTeacher;
 	}
@@ -54,12 +72,12 @@ public class Employment {
 		this.isTeacher = isTeacher;
 	}
 
-	public GroupReference getSchoolUnit() {
-		return schoolUnit;
+	public Reference getEmployedAt() {
+		return employedAt;
 	}
 
-	public void setSchoolUnit(GroupReference schoolUnit) {
-		this.schoolUnit = schoolUnit;
+	public void setEmployedAt(Reference employedAt) {
+		this.employedAt = employedAt;
 	}
 
 	public String getSignature() {
@@ -73,11 +91,12 @@ public class Employment {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + employmentPercent;
 		result = prime * result + ((employmentTime == null) ? 0 : employmentTime.hashCode());
+		result = prime * result + hoursPerYear;
 		result = prime * result + (isTeacher ? 1231 : 1237);
-		result = prime * result + ((schoolUnit == null) ? 0 : schoolUnit.hashCode());
+		result = prime * result + ((employedAt == null) ? 0 : employedAt.hashCode());
 		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
 		return result;
 	}
@@ -86,7 +105,7 @@ public class Employment {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -98,12 +117,14 @@ public class Employment {
 				return false;
 		} else if (!employmentTime.equals(other.employmentTime))
 			return false;
+		if (hoursPerYear != other.hoursPerYear)
+			return false;
 		if (isTeacher != other.isTeacher)
 			return false;
-		if (schoolUnit == null) {
-			if (other.schoolUnit != null)
+		if (employedAt == null) {
+			if (other.employedAt != null)
 				return false;
-		} else if (!schoolUnit.equals(other.schoolUnit))
+		} else if (!employedAt.equals(other.employedAt))
 			return false;
 		if (signature == null) {
 			if (other.signature != null)
