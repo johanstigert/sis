@@ -2,6 +2,7 @@ package sis.school.model.scim2.core;
 
 import static sis.school.model.scim2.extension.element.Constant.BASE_URI;
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_CORE;
+<<<<<<< HEAD
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_EXTENSION;
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_SCHOOLUNIT;
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_STUDENT;
@@ -61,6 +62,72 @@ public class Group extends Resource {
 		type.addSchemaExtension(new SchemaExtension(URN_GROUP_SCHOOLUNIT, false));
 		type.addSchemaExtension(new SchemaExtension(URN_GROUP_STUDENT, false));
 		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/ResourceTypes/Group", null));
+=======
+
+import java.util.ArrayList;
+import java.util.List;
+
+import sis.school.model.scim2.core.schema.ResourceType;
+import sis.school.model.scim2.extension.element.Member;
+
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
+public class Group extends Resource {
+
+	private String displayName;
+	private List<Member> members;
+
+	public Group() {
+	}
+
+	public Group(String id) {
+		super(id);
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public List<Member> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Member> members) {
+		this.members = members;
+	}
+
+	public void addMember(Member member) {
+		if (this.members == null)
+			this.members = new ArrayList<Member>();
+		this.members.add(member);
+	}
+
+	// public enum GroupType {
+	// SCHOOLUNIT("Schoolunit"), COURSE("Course"), CLASS("Class"),
+	// GROUP("Group"), UNKNOWN("Unknown");
+	//
+	// private final String type;
+	//
+	// private GroupType(String type) {
+	// this.type = type;
+	// }
+	//
+	// public String toString() {
+	// return type;
+	// }
+	// }
+
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("Group", "/Groups", "Grupp", URN_GROUP_CORE);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/Groups", null));
+>>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 		return type;
 	}
 

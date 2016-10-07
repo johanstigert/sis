@@ -1,8 +1,13 @@
-package skola.model.scim2.extension.element;
+package sis.school.model.scim2.extension.element;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * 
+ * ©TimeEdit 2016
+ *
+ */
 @JsonPropertyOrder({ "value", "$ref", "display" })
 public class Reference {
 

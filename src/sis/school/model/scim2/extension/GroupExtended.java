@@ -1,6 +1,7 @@
 package sis.school.model.scim2.extension;
 
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_EXTENSION;
+<<<<<<< HEAD
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_MEMBERS;
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_SCHOOLUNIT;
 import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_STUDENT;
@@ -74,6 +75,68 @@ public class GroupExtended extends Group {
 
 	public void setGroupMembers(GroupMembers groupMembers) {
 		this.groupMembers = groupMembers;
+=======
+import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_SCHOOLUNIT;
+import static sis.school.model.scim2.extension.element.Constant.URN_GROUP_STUDENT;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import sis.school.model.scim2.core.Group;
+import sis.school.model.scim2.extension.extension.group.GroupNode;
+import sis.school.model.scim2.extension.extension.group.SchoolUnit;
+import sis.school.model.scim2.extension.extension.group.StudentGroup;
+
+@JsonPropertyOrder({ "schemas", "id", "displayName", "members", URN_GROUP_EXTENSION, URN_GROUP_STUDENT,
+		URN_GROUP_SCHOOLUNIT, "meta" })
+public class GroupExtended extends Group {
+
+	@JsonProperty(URN_GROUP_EXTENSION)
+	private GroupNode group;
+
+	@JsonProperty(URN_GROUP_STUDENT)
+	private StudentGroup studentGroup;
+
+	@JsonProperty(URN_GROUP_SCHOOLUNIT)
+	private SchoolUnit schoolunit;
+
+	public GroupExtended() {
+	}
+
+	public GroupExtended(String id) {
+		super(id);
+	}
+
+	public GroupExtended(GroupNode group, StudentGroup studentGroup, SchoolUnit schoolunit) {
+		super();
+		this.group = group;
+		this.studentGroup = studentGroup;
+		this.schoolunit = schoolunit;
+	}
+
+	public GroupNode getGroup() {
+		return group;
+	}
+
+	public void setGroup(GroupNode group) {
+		this.group = group;
+	}
+
+	public StudentGroup getStudentGroup() {
+		return studentGroup;
+	}
+
+	public void setStudentGroup(StudentGroup studentGroup) {
+		this.studentGroup = studentGroup;
+	}
+
+	public SchoolUnit getSchoolunit() {
+		return schoolunit;
+	}
+
+	public void setSchoolunit(SchoolUnit schoolunit) {
+		this.schoolunit = schoolunit;
+>>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 	}
 
 	@Override

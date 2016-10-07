@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 /**
  * 
  * ©TimeEdit 2016
@@ -18,12 +20,9 @@ public class ListResponse {
 	private int itemsPerPage;
 	private int totalResults;
 	private int startIndex;
-	@JsonProperty("Resources")
-	private List<? extends sis.school.model.scim2.core.Resource> resources;
+	private List<? extends sis.school.model.scim2.core.Resource> Resource;
 
 	public ListResponse() {
-		schemas = new String[1];
-		schemas[0] = URN_LISTRESPONSE;
 	}
 
 	public String[] getSchemas() {
@@ -42,6 +41,14 @@ public class ListResponse {
 		this.totalResults = totalResults;
 	}
 
+	public List<? extends sis.school.model.scim2.core.Resource> getResource() {
+		return Resource;
+	}
+
+	public void setResource(List<? extends sis.school.model.scim2.core.Resource> resource) {
+		Resource = resource;
+	}
+
 	public int getItemsPerPage() {
 		return itemsPerPage;
 	}
@@ -56,13 +63,5 @@ public class ListResponse {
 
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
-	}
-
-	public List<? extends sis.school.model.scim2.core.Resource> getResources() {
-		return resources;
-	}
-
-	public void setResources(List<? extends sis.school.model.scim2.core.Resource> resources) {
-		this.resources = resources;
 	}
 }
