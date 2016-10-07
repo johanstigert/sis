@@ -8,7 +8,6 @@ public class Code {
 		Övrigt; // Läxhjälp, lunch, bokning
 	}
 
-<<<<<<< HEAD
 	public class Gender {
 		public static final String MALE = "Male";
 		public static final String FEMALE = "Female";
@@ -34,32 +33,6 @@ public class Code {
 				return SchoolType.grundskola;
 			case "Gymnasieskola":
 				return SchoolType.gymnasieskola;
-=======
-	public enum Gender {
-		male, female;
-	}
-
-	public enum SchoolGroupType {
-		Undervisning, Klass, Mentor, Övrigt;
-	}
-
-	public enum SchoolType {
-		GRUNDSKOLA("Grundskola"), GYMNASIESKOLA("Gymnasieskola"), VUXENUTBILDNING("Vuxenutbildning"), FÖRSKOLA(
-				"Förskola"), HÖGRE_UTBILDNING("Högre utbildning"), FRITIDS("Fritids");
-
-		private final String schoolType;
-
-		private SchoolType(String schoolType) {
-			this.schoolType = schoolType;
-		}
-
-		public static SchoolType create(String schoolType) {
-			switch (schoolType) {
-			case "Grundskola":
-				return SchoolType.GRUNDSKOLA;
-			case "Gymnasieskola":
-				return SchoolType.GYMNASIESKOLA;
->>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 			}
 			return null;
 		}

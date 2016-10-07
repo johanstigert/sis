@@ -17,10 +17,7 @@ public class TeacherAssignment extends Assignment {
 
 	public TeacherAssignment(String value, String ref, String display, DateRange dateInterval, int timeplanned) {
 		super(value, ref, display, dateInterval);
-<<<<<<< HEAD
 		this.timeplanned = timeplanned;
-=======
->>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 	}
 
 	public int getTimeplanned() {

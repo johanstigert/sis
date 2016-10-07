@@ -2,11 +2,8 @@ package sis.school.model.scim2.extension.element;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-<<<<<<< HEAD
 import sis.school.model.scim2.core.element.Reference;
 
-=======
->>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 /**
  * 
  * ©TimeEdit 2016

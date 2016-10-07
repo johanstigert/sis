@@ -2,13 +2,8 @@ package sis.school.model.scim2.extension.extension.group;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-<<<<<<< HEAD
 import sis.school.model.scim2.core.element.Reference;
 import sis.school.model.scim2.extension.element.DateRange;
-=======
-import sis.school.model.scim2.extension.element.DateRange;
-import sis.school.model.scim2.extension.element.Reference;
->>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 
 /**
  * 

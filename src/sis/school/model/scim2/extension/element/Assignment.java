@@ -53,21 +53,12 @@ public class Assignment {
 		this.display = display;
 	}
 
-<<<<<<< HEAD
 	public DateRange getDateRange() {
 		return dateRange;
 	}
 
 	public void setDateRange(DateRange dateRange) {
 		this.dateRange = dateRange;
-=======
-	public DateRange getDateInterval() {
-		return dateRange;
-	}
-
-	public void setDateInterval(DateRange dateInterval) {
-		this.dateRange = dateInterval;
->>>>>>> branch 'master' of https://github.com/johanstigert/sis.git
 	}
 
 	@Override
