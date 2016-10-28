@@ -1,18 +1,24 @@
 package sis.school.model.scim2.extension;
 
 import static sis.school.model.scim2.extension.element.Constant.BASE_URI;
+import static sis.school.model.scim2.extension.element.Constant.DATE_TIME_FORMAT;
+import static sis.school.model.scim2.extension.element.Constant.TIMEZONE;
 import static sis.school.model.scim2.extension.element.Constant.URN_CALENDAREVENT;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import sis.school.model.scim2.core.Meta;
 import sis.school.model.scim2.core.Resource;
 import sis.school.model.scim2.core.element.Reference;
 import sis.school.model.scim2.core.schema.ResourceType;
-import sis.school.model.scim2.extension.element.DateTimeRange;
 import sis.school.model.scim2.extension.element.Exception;
 import sis.school.model.scim2.extension.element.TeacherException;
 
@@ -21,14 +27,15 @@ import sis.school.model.scim2.extension.element.TeacherException;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "schemas", "id", "cancelled", "comment", "dateTimeRange", "teachingLengthTeacher",
-		"teachingLengthStudent", "rooms", "resources", "studentExceptions", "teacherExceptions", "groupExceptions",
-		"activity", "meta" })
+@JsonPropertyOrder({ "schemas", "id", "cancelled", "comment", "startDateTime", "endDateTime", "teachingLengthTeacher", "teachingLengthStudent", "rooms", "resources", "studentExceptions", "teacherExceptions", "groupExceptions", "activity", "meta" })
 public class CalendarEvent extends Resource {
 
 	private boolean cancelled;
 	private String comment;
-	private DateTimeRange dateTimeRange;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT, timezone = TIMEZONE)
+	private Date startDateTime;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_TIME_FORMAT, timezone = TIMEZONE)
+	private Date endDateTime;
 	private int teachingLengthTeacher;
 	private int teachingLengthStudent;
 	private List<Reference> rooms;
@@ -45,14 +52,10 @@ public class CalendarEvent extends Resource {
 		super(id);
 	}
 
-	public CalendarEvent(boolean cancelled, String comment, DateTimeRange dateTimeRange, int teachingLengthTeacher,
-			int teachingLengthStudent, List<Reference> rooms, List<Reference> resources,
-			List<Exception> studentExceptions, List<TeacherException> teacherExceptions,
-			List<Exception> groupExceptions, Reference activity) {
+	public CalendarEvent(boolean cancelled, String comment, String startDateTime, String endDateTime, int teachingLengthTeacher, int teachingLengthStudent, List<Reference> rooms, List<Reference> resources, List<Exception> studentExceptions, List<TeacherException> teacherExceptions, List<Exception> groupExceptions, Reference activity) {
 		super();
 		this.cancelled = cancelled;
 		this.comment = comment;
-		this.dateTimeRange = dateTimeRange;
 		this.teachingLengthTeacher = teachingLengthTeacher;
 		this.teachingLengthStudent = teachingLengthStudent;
 		this.rooms = rooms;
@@ -61,6 +64,16 @@ public class CalendarEvent extends Resource {
 		this.teacherExceptions = teacherExceptions;
 		this.groupExceptions = groupExceptions;
 		this.activity = activity;
+		DateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+		try {
+			if (startDateTime != null) {
+				this.startDateTime = sdf.parse(startDateTime);
+			}
+			if (endDateTime != null) {
+				this.endDateTime = sdf.parse(endDateTime);
+			}
+		} catch (ParseException e) {
+		}
 	}
 
 	public boolean isCancelled() {
@@ -79,12 +92,20 @@ public class CalendarEvent extends Resource {
 		this.comment = comment;
 	}
 
-	public DateTimeRange getDateTimeRange() {
-		return dateTimeRange;
+	public Date getStartDateTime() {
+		return startDateTime;
 	}
 
-	public void setDateTimeRange(DateTimeRange dateTimeRange) {
-		this.dateTimeRange = dateTimeRange;
+	public void setStartDateTime(Date startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public Date getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(Date endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	public int getTeachingLengthTeacher() {
@@ -188,10 +209,11 @@ public class CalendarEvent extends Resource {
 		result = prime * result + ((activity == null) ? 0 : activity.hashCode());
 		result = prime * result + (cancelled ? 1231 : 1237);
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result + ((dateTimeRange == null) ? 0 : dateTimeRange.hashCode());
+		result = prime * result + ((endDateTime == null) ? 0 : endDateTime.hashCode());
 		result = prime * result + ((groupExceptions == null) ? 0 : groupExceptions.hashCode());
 		result = prime * result + ((resources == null) ? 0 : resources.hashCode());
 		result = prime * result + ((rooms == null) ? 0 : rooms.hashCode());
+		result = prime * result + ((startDateTime == null) ? 0 : startDateTime.hashCode());
 		result = prime * result + ((studentExceptions == null) ? 0 : studentExceptions.hashCode());
 		result = prime * result + ((teacherExceptions == null) ? 0 : teacherExceptions.hashCode());
 		result = prime * result + teachingLengthStudent;
@@ -220,10 +242,10 @@ public class CalendarEvent extends Resource {
 				return false;
 		} else if (!comment.equals(other.comment))
 			return false;
-		if (dateTimeRange == null) {
-			if (other.dateTimeRange != null)
+		if (endDateTime == null) {
+			if (other.endDateTime != null)
 				return false;
-		} else if (!dateTimeRange.equals(other.dateTimeRange))
+		} else if (!endDateTime.equals(other.endDateTime))
 			return false;
 		if (groupExceptions == null) {
 			if (other.groupExceptions != null)
@@ -239,6 +261,11 @@ public class CalendarEvent extends Resource {
 			if (other.rooms != null)
 				return false;
 		} else if (!rooms.equals(other.rooms))
+			return false;
+		if (startDateTime == null) {
+			if (other.startDateTime != null)
+				return false;
+		} else if (!startDateTime.equals(other.startDateTime))
 			return false;
 		if (studentExceptions == null) {
 			if (other.studentExceptions != null)
@@ -258,8 +285,7 @@ public class CalendarEvent extends Resource {
 	}
 
 	public static ResourceType getResourceType() {
-		ResourceType type = new ResourceType("CalendarEvent", "/CalendarEvents", "Kalenderpost", URN_CALENDAREVENT,
-				null);
+		ResourceType type = new ResourceType("CalendarEvent", "/CalendarEvents", "Kalenderpost", URN_CALENDAREVENT, null);
 		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/ResourceTypes/CalendarEvent", null));
 		return type;
 	}

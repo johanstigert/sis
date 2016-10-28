@@ -15,11 +15,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "beginDate", "endDate" })
+@JsonPropertyOrder({ "startDate", "endDate" })
 public class DateRange {
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = TIMEZONE)
-	private Date beginDate;
+	private Date startDate;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = TIMEZONE)
 	private Date endDate;
 
@@ -27,26 +27,30 @@ public class DateRange {
 	}
 
 	public DateRange(Date start, Date end) {
-		this.beginDate = start;
+		this.startDate = start;
 		this.endDate = end;
 	}
 
-	public DateRange(String startYyyymmdd, String endYyyymmdd) throws ParseException {
+	public DateRange(String startYyyymmdd, String endYyyymmdd) {
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-		if (startYyyymmdd != null) {
-			this.beginDate = sdf.parse(startYyyymmdd);
-		}
-		if (endYyyymmdd != null) {
-			this.endDate = sdf.parse(endYyyymmdd);
+		try {
+			if (startYyyymmdd != null) {
+				this.startDate = sdf.parse(startYyyymmdd);
+			}
+			if (endYyyymmdd != null) {
+				this.endDate = sdf.parse(endYyyymmdd);
+			}
+		} catch (ParseException e) {
+
 		}
 	}
 
-	public Date getBeginDate() {
-		return beginDate;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setBeginDate(Date start) {
-		this.beginDate = start;
+	public void setStartDate(Date start) {
+		this.startDate = start;
 	}
 
 	public Date getEndDate() {
@@ -62,7 +66,7 @@ public class DateRange {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((beginDate == null) ? 0 : beginDate.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
 	}
 
@@ -80,10 +84,10 @@ public class DateRange {
 				return false;
 		} else if (!endDate.equals(other.endDate))
 			return false;
-		if (beginDate == null) {
-			if (other.beginDate != null)
+		if (startDate == null) {
+			if (other.startDate != null)
 				return false;
-		} else if (!beginDate.equals(other.beginDate))
+		} else if (!startDate.equals(other.startDate))
 
 			return false;
 		return true;

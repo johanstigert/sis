@@ -3,6 +3,7 @@ package sis.school.model.scim2.extension.element;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: REMOVE!
 public class GroupMembers {
 
 	private List<GroupMember> employees;

@@ -1,5 +1,6 @@
 package sis.school.model.scim2.extension.element;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -8,8 +9,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "value", "$ref", "display", "dateRange" })
-public class Assignment {
+@JsonIgnoreProperties({ "type", "primary" })
+@JsonPropertyOrder({ "value", "$ref", "display", "startDate", "endDate" })
+public class Assignment extends DateRange {
 
 	private String value;
 
@@ -17,16 +19,14 @@ public class Assignment {
 	private String ref;
 	private String display;
 
-	private DateRange dateRange;
-
 	public Assignment() {
 	}
 
-	public Assignment(String value, String ref, String display, DateRange dateInterval) {
+	public Assignment(String value, String ref, String display, String startDate, String endDate) {
+		super(startDate, endDate);
 		this.value = value;
 		this.ref = ref;
 		this.display = display;
-		this.dateRange = dateInterval;
 	}
 
 	public String getValue() {
@@ -53,19 +53,10 @@ public class Assignment {
 		this.display = display;
 	}
 
-	public DateRange getDateRange() {
-		return dateRange;
-	}
-
-	public void setDateRange(DateRange dateRange) {
-		this.dateRange = dateRange;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dateRange == null) ? 0 : dateRange.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((display == null) ? 0 : display.hashCode());
 		result = prime * result + ((ref == null) ? 0 : ref.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
@@ -76,16 +67,11 @@ public class Assignment {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Assignment other = (Assignment) obj;
-		if (dateRange == null) {
-			if (other.dateRange != null)
-				return false;
-		} else if (!dateRange.equals(other.dateRange))
-			return false;
 		if (display == null) {
 			if (other.display != null)
 				return false;

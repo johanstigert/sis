@@ -1,32 +1,43 @@
 package sis.school.model.scim2.extension;
 
-import java.util.List;
+import static sis.school.model.scim2.extension.element.Constant.BASE_URI;
+import static sis.school.model.scim2.extension.element.Constant.DATE_FORMAT;
+import static sis.school.model.scim2.extension.element.Constant.TIMEZONE;
+import static sis.school.model.scim2.extension.element.Constant.URN_EMPLOYMENT;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import sis.school.model.scim2.core.Meta;
 import sis.school.model.scim2.core.Resource;
 import sis.school.model.scim2.core.element.Reference;
-import sis.school.model.scim2.extension.element.DateRange;
+import sis.school.model.scim2.core.schema.ResourceType;
 
 /**
  * 
  * @see Employee
  *
  */
-@JsonPropertyOrder({ "schemas", "id", "employmentTime", "employmentPercent", "hoursPerYear", "isTeacher", "employedAt",
-		"signature", "meta" })
+@JsonIgnoreProperties({ "employmentTime" })
+@JsonPropertyOrder({ "schemas", "id", "startDate", "endDate", "employmentPercent", "hoursPerYear", "isTeacher", "signature", "user", "school", "schoolunit", "meta" })
 public class Employment extends Resource {
 
-	private DateRange employmentTime;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = TIMEZONE)
+	private Date startDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = TIMEZONE)
+	private Date endDate;
 	private int employmentPercent;
 	private int hoursPerYear;
 	@JsonProperty("isTeacher")
-	private boolean isTeacher;
-	private Reference employedAt;
+	private boolean teacher;
 	private String signature;
-	private List<Reference> users;
-	private List<Reference> schools;
+	private Reference user;
+	private Reference school;
+	private Reference schoolunit;
 
 	public Employment() {
 	}
@@ -35,25 +46,15 @@ public class Employment extends Resource {
 		super(id);
 	}
 
-	public Employment(DateRange employmentTime, int employmentPercent, int hoursPerYear, boolean isTeacher,
-			Reference employedAt, String signature, List<Reference> users, List<Reference> schools) {
+	public Employment(Date startDate, Date endDate, int employmentPercent, int hoursPerYear, boolean teacher, String signature, Reference user, Reference school) {
 		super();
-		this.employmentTime = employmentTime;
-		this.employmentPercent = employmentPercent;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.hoursPerYear = hoursPerYear;
-		this.isTeacher = isTeacher;
-		this.employedAt = employedAt;
+		this.teacher = teacher;
 		this.signature = signature;
-		this.users = users;
-		this.setSchools(schools);
-	}
-
-	public DateRange getEmploymentTime() {
-		return employmentTime;
-	}
-
-	public void setEmploymentTime(DateRange employmentTime) {
-		this.employmentTime = employmentTime;
+		this.user = user;
+		this.school = school;
 	}
 
 	public int getEmploymentPercent() {
@@ -72,20 +73,12 @@ public class Employment extends Resource {
 		this.hoursPerYear = hoursPerYear;
 	}
 
-	public boolean isTeacher() {
-		return isTeacher;
+	public boolean getTeacher() {
+		return teacher;
 	}
 
-	public void setTeacher(boolean isTeacher) {
-		this.isTeacher = isTeacher;
-	}
-
-	public Reference getEmployedAt() {
-		return employedAt;
-	}
-
-	public void setEmployedAt(Reference employedAt) {
-		this.employedAt = employedAt;
+	public void setTeacher(boolean teacher) {
+		this.teacher = teacher;
 	}
 
 	public String getSignature() {
@@ -96,34 +89,59 @@ public class Employment extends Resource {
 		this.signature = signature;
 	}
 
-	public List<Reference> getUsers() {
-		return users;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setUsers(List<Reference> users) {
-		this.users = users;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public List<Reference> getSchools() {
-		return schools;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setSchools(List<Reference> schools) {
-		this.schools = schools;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Reference getUser() {
+		return user;
+	}
+
+	public void setUser(Reference user) {
+		this.user = user;
+	}
+
+	public Reference getSchool() {
+		return school;
+	}
+
+	public void setSchool(Reference school) {
+		this.school = school;
+	}
+
+	public Reference getSchoolunit() {
+		return schoolunit;
+	}
+
+	public void setSchoolunit(Reference schoolunit) {
+		this.schoolunit = schoolunit;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((employedAt == null) ? 0 : employedAt.hashCode());
 		result = prime * result + employmentPercent;
-		result = prime * result + ((employmentTime == null) ? 0 : employmentTime.hashCode());
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result + hoursPerYear;
-		result = prime * result + (isTeacher ? 1231 : 1237);
-		result = prime * result + ((schools == null) ? 0 : schools.hashCode());
+		result = prime * result + ((school == null) ? 0 : school.hashCode());
+		result = prime * result + ((schoolunit == null) ? 0 : schoolunit.hashCode());
 		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + (teacher ? 1231 : 1237);
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -136,37 +154,48 @@ public class Employment extends Resource {
 		if (getClass() != obj.getClass())
 			return false;
 		Employment other = (Employment) obj;
-		if (employedAt == null) {
-			if (other.employedAt != null)
-				return false;
-		} else if (!employedAt.equals(other.employedAt))
-			return false;
 		if (employmentPercent != other.employmentPercent)
 			return false;
-		if (employmentTime == null) {
-			if (other.employmentTime != null)
+		if (endDate == null) {
+			if (other.endDate != null)
 				return false;
-		} else if (!employmentTime.equals(other.employmentTime))
+		} else if (!endDate.equals(other.endDate))
 			return false;
 		if (hoursPerYear != other.hoursPerYear)
 			return false;
-		if (isTeacher != other.isTeacher)
-			return false;
-		if (schools == null) {
-			if (other.schools != null)
+		if (school == null) {
+			if (other.school != null)
 				return false;
-		} else if (!schools.equals(other.schools))
+		} else if (!school.equals(other.school))
+			return false;
+		if (schoolunit == null) {
+			if (other.schoolunit != null)
+				return false;
+		} else if (!schoolunit.equals(other.schoolunit))
 			return false;
 		if (signature == null) {
 			if (other.signature != null)
 				return false;
 		} else if (!signature.equals(other.signature))
 			return false;
-		if (users == null) {
-			if (other.users != null)
+		if (startDate == null) {
+			if (other.startDate != null)
 				return false;
-		} else if (!users.equals(other.users))
+		} else if (!startDate.equals(other.startDate))
+			return false;
+		if (teacher != other.teacher)
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+
+	public static ResourceType getResourceType() {
+		ResourceType type = new ResourceType("Employment", "/Employments", "Employment", URN_EMPLOYMENT, null);
+		type.setMeta(new Meta("ResourceType", null, null, BASE_URI + "/ResourceTypes/Employment", null));
+		return type;
 	}
 }

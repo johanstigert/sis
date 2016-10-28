@@ -10,27 +10,17 @@ import sis.school.model.scim2.extension.element.DateRange;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "dateRange", "parentgroup" })
-public class GroupNode {
+@JsonPropertyOrder({ "startDate", "endDate", "parentgroup" })
+public class GroupNode extends DateRange {
 
-	private DateRange dateRange;
 	private Reference parentGroup;
 
 	public GroupNode() {
 	}
 
-	public GroupNode(DateRange dateRange, Reference parentGroup) {
+	public GroupNode(Reference parentGroup) {
 		super();
-		this.dateRange = dateRange;
 		this.parentGroup = parentGroup;
-	}
-
-	public DateRange getDateRange() {
-		return dateRange;
-	}
-
-	public void setDateRange(DateRange dateRange) {
-		this.dateRange = dateRange;
 	}
 
 	public Reference getParentGroup() {
@@ -44,8 +34,7 @@ public class GroupNode {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dateRange == null) ? 0 : dateRange.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((parentGroup == null) ? 0 : parentGroup.hashCode());
 		return result;
 	}
@@ -54,16 +43,11 @@ public class GroupNode {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		GroupNode other = (GroupNode) obj;
-		if (dateRange == null) {
-			if (other.dateRange != null)
-				return false;
-		} else if (!dateRange.equals(other.dateRange))
-			return false;
 		if (parentGroup == null) {
 			if (other.parentGroup != null)
 				return false;

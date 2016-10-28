@@ -2,8 +2,10 @@ package sis.school.model.scim2.extension.extension;
 
 import java.text.ParseException;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import sis.school.model.scim2.core.element.Reference;
 import sis.school.model.scim2.extension.code.Code.SchoolType;
 import sis.school.model.scim2.extension.element.DateRange;
 
@@ -12,10 +14,11 @@ import sis.school.model.scim2.extension.element.DateRange;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "schoolUnitCode", "schoolType", "programCode", "schoolYear", "start", "end" })
+@JsonIgnoreProperties({ "schoolUnitCode" })
+@JsonPropertyOrder({ "schoolType", "programCode", "schoolYear", "startDate", "endDate", "schoolUnit" })
 public class Enrolment extends DateRange {
 
-	private String schoolUnitCode;
+	private String schoolUnit;
 	private SchoolType schoolType;
 	private String programCode;
 	private int schoolYear;
@@ -23,21 +26,20 @@ public class Enrolment extends DateRange {
 	public Enrolment() {
 	}
 
-	public Enrolment(String schoolUnitCode, SchoolType schoolType, String programCode, int schoolYear,
-			String startYyyymmdd, String endYyyymmdd) throws ParseException {
+	public Enrolment(String schoolUnit, SchoolType schoolType, String programCode, int schoolYear, String startYyyymmdd, String endYyyymmdd) throws ParseException {
 		super(startYyyymmdd, endYyyymmdd);
-		this.schoolUnitCode = schoolUnitCode;
+		this.schoolUnit = schoolUnit;
 		this.schoolType = schoolType;
 		this.programCode = programCode;
 		this.schoolYear = schoolYear;
 	}
 
-	public String getSchoolUnitCode() {
-		return schoolUnitCode;
+	public String getSchoolUnit() {
+		return schoolUnit;
 	}
 
-	public void setSchoolUnitCode(String schoolUnitCode) {
-		this.schoolUnitCode = schoolUnitCode;
+	public void setSchoolUnit(String schoolUnit) {
+		this.schoolUnit = schoolUnit;
 	}
 
 	public SchoolType getSchoolType() {
@@ -70,7 +72,7 @@ public class Enrolment extends DateRange {
 		int result = super.hashCode();
 		result = prime * result + ((programCode == null) ? 0 : programCode.hashCode());
 		result = prime * result + ((schoolType == null) ? 0 : schoolType.hashCode());
-		result = prime * result + ((schoolUnitCode == null) ? 0 : schoolUnitCode.hashCode());
+		result = prime * result + ((schoolUnit == null) ? 0 : schoolUnit.hashCode());
 		result = prime * result + schoolYear;
 		return result;
 	}
@@ -91,10 +93,10 @@ public class Enrolment extends DateRange {
 			return false;
 		if (schoolType != other.schoolType)
 			return false;
-		if (schoolUnitCode == null) {
-			if (other.schoolUnitCode != null)
+		if (schoolUnit == null) {
+			if (other.schoolUnit != null)
 				return false;
-		} else if (!schoolUnitCode.equals(other.schoolUnitCode))
+		} else if (!schoolUnit.equals(other.schoolUnit))
 			return false;
 		if (schoolYear != other.schoolYear)
 			return false;

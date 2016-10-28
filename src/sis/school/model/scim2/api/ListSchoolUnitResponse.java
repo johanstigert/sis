@@ -1,8 +1,12 @@
 package sis.school.model.scim2.api;
 
+import static sis.school.model.scim2.extension.element.Constant.URN_LISTRESPONSE;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import sis.school.model.scim2.extension.SchoolUnit;
 
 /**
  * 
@@ -10,16 +14,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 // https://tools.ietf.org/html/rfc7644#section-3.4.2
-public class ListResponse {
+public class ListSchoolUnitResponse {
 
 	private String[] schemas;
 	private int itemsPerPage;
 	private int totalResults;
 	private int startIndex;
 	@JsonProperty("Resources")
-	private List<? extends sis.school.model.scim2.core.Resource> resources;
+	private List<SchoolUnit> resources;
 
-	public ListResponse() {
+	public ListSchoolUnitResponse() {
+		schemas = new String[1];
+		schemas[0] = URN_LISTRESPONSE;
 	}
 
 	public String[] getSchemas() {
@@ -54,11 +60,11 @@ public class ListResponse {
 		this.startIndex = startIndex;
 	}
 
-	public List<? extends sis.school.model.scim2.core.Resource> getResources() {
+	public List<SchoolUnit> getResource() {
 		return resources;
 	}
 
-	public void setResources(List<? extends sis.school.model.scim2.core.Resource> resources) {
-		this.resources = resources;
+	public void setResource(List<SchoolUnit> resource) {
+		resources = resource;
 	}
 }

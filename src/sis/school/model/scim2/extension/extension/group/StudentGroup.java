@@ -1,5 +1,6 @@
 package sis.school.model.scim2.extension.extension.group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -8,9 +9,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import sis.school.model.scim2.core.element.Reference;
 import sis.school.model.scim2.extension.code.Code.StudentGroupType;
+import sis.school.model.scim2.extension.element.GroupMember;
 
-@JsonIgnoreProperties({ "students", "teachers", "schoolTypes" })
-@JsonPropertyOrder({ "studentGroupType", "schoolYear", "courses", "subjects" })
+@JsonIgnoreProperties({ "students", "teachers", "schoolTypes", "schoolYears" })
+@JsonPropertyOrder({ "studentGroupType", "schoolYear", "courses", "subjects", "students" })
 public class StudentGroup {
 
 	private StudentGroupType studentGroupType;
@@ -22,16 +24,19 @@ public class StudentGroup {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private List<Reference> subjects;
 
+	private List<GroupMember> students;
+
 	public StudentGroup() {
+		this.students = new ArrayList<GroupMember>();
 	}
 
-	public StudentGroup(StudentGroupType studentGroupType, int schoolYear, List<Reference> courses,
-			List<Reference> subjects) {
+	public StudentGroup(StudentGroupType studentGroupType, int schoolYear, List<Reference> courses, List<Reference> subjects, List<GroupMember> students) {
 		super();
 		this.studentGroupType = studentGroupType;
 		this.schoolYear = schoolYear;
 		this.courses = courses;
 		this.subjects = subjects;
+		this.students = students;
 	}
 
 	public StudentGroupType getStudentGroupType() {
@@ -66,6 +71,21 @@ public class StudentGroup {
 		this.subjects = subjects;
 	}
 
+	public List<GroupMember> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<GroupMember> students) {
+		this.students = students;
+	}
+
+	public void addStudent(GroupMember student) {
+		if (this.students == null) {
+			this.students = new ArrayList<GroupMember>();
+		}
+		this.students.add(student);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,6 +93,7 @@ public class StudentGroup {
 		result = prime * result + ((courses == null) ? 0 : courses.hashCode());
 		result = prime * result + schoolYear;
 		result = prime * result + ((studentGroupType == null) ? 0 : studentGroupType.hashCode());
+		result = prime * result + ((students == null) ? 0 : students.hashCode());
 		result = prime * result + ((subjects == null) ? 0 : subjects.hashCode());
 		return result;
 	}
@@ -94,6 +115,11 @@ public class StudentGroup {
 		if (schoolYear != other.schoolYear)
 			return false;
 		if (studentGroupType != other.studentGroupType)
+			return false;
+		if (students == null) {
+			if (other.students != null)
+				return false;
+		} else if (!students.equals(other.students))
 			return false;
 		if (subjects == null) {
 			if (other.subjects != null)

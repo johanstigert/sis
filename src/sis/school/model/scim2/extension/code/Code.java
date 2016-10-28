@@ -5,7 +5,7 @@ public class Code {
 	public enum ActivityType {
 		Undervisning, Elevaktivitet, // Frånvaro, närvaro
 		Läraraktivitet, // Arbetstid
-		Övrigt; // Läxhjälp, lunch, bokning
+		Övrigt, UpperSecondaryEducationGroup, Class; // Läxhjälp, lunch, bokning
 	}
 
 	public class Gender {

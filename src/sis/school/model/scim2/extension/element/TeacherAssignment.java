@@ -1,5 +1,6 @@
 package sis.school.model.scim2.extension.element;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
@@ -7,7 +8,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "value", "$ref", "display", "dateRange", "timeplanned" })
+@JsonIgnoreProperties({ "minutesPlanned", "type", "primary" })
+@JsonPropertyOrder({ "value", "$ref", "display", "startDate", "endDate", "timeplanned" })
 public class TeacherAssignment extends Assignment {
 
 	private int timeplanned;
@@ -15,8 +17,8 @@ public class TeacherAssignment extends Assignment {
 	public TeacherAssignment() {
 	}
 
-	public TeacherAssignment(String value, String ref, String display, DateRange dateInterval, int timeplanned) {
-		super(value, ref, display, dateInterval);
+	public TeacherAssignment(String value, String ref, String display, int timeplanned, String startDate, String endDate) {
+		super(value, ref, display, startDate, endDate);
 		this.timeplanned = timeplanned;
 	}
 

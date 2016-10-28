@@ -1,6 +1,8 @@
 package sis.school.model.example;
 
 import static sis.school.model.scim2.extension.element.Constant.BASE_URI;
+import static sis.school.model.scim2.extension.element.Constant.DATE_FORMAT;
+import static sis.school.model.scim2.extension.element.Constant.DATE_TIME_FORMAT;
 import static sis.school.model.scim2.extension.element.Constant.URN_ACTIVITY;
 import static sis.school.model.scim2.extension.element.Constant.URN_CALENDAREVENT;
 import static sis.school.model.scim2.extension.element.Constant.URN_COURSE;
@@ -13,7 +15,9 @@ import static sis.school.model.scim2.extension.element.Constant.URN_SUBJECT;
 import static sis.school.model.scim2.extension.element.Constant.URN_USER;
 import static sis.school.model.scim2.extension.element.Constant.URN_USER_EXTENDED;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +46,6 @@ import sis.school.model.scim2.extension.code.Code.SchoolType;
 import sis.school.model.scim2.extension.code.Code.StudentGroupType;
 import sis.school.model.scim2.extension.element.Assignment;
 import sis.school.model.scim2.extension.element.ContactPerson;
-import sis.school.model.scim2.extension.element.DateRange;
-import sis.school.model.scim2.extension.element.DateTimeRange;
 import sis.school.model.scim2.extension.element.Exception;
 import sis.school.model.scim2.extension.element.GroupMember;
 import sis.school.model.scim2.extension.element.TeacherAssignment;
@@ -99,19 +101,16 @@ public class TestObject {
 		student.setName(new Name("Ms. Barbara J Jensen, III", "Jensen", "Barbara", "Jane", null, null));
 		student.addMail(new Email("barbar@skola.se", "work", true));
 		student.addMail(new Email("barbar@home.se", "home", false));
-		student.addGroup(new Reference("e9e30dba-f08f-4109-8486-d5c6a331660a",
-				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "Klass 5A"));
+		student.addGroup(new Reference("e9e30dba-f08f-4109-8486-d5c6a331660a", BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "Klass 5A"));
 		List<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
-		contactPersons.add(new ContactPerson("26118915-6090-4610-87e4-49d8ca9f808d",
-				BASE_URI + "/Users/26118915-6090-4610-87e4-49d8ca9f808d", "John Smith", "Guardian"));
-		contactPersons.add(new ContactPerson("26118915-6090-4610-87e4-4f1234234223",
-				BASE_URI + "/Users/26118915-6090-4610-87e4-4f1234234223", "Gullan Olsson", "Guardian"));
+		contactPersons.add(new ContactPerson("26118915-6090-4610-87e4-49d8ca9f808d", BASE_URI + "/Users/26118915-6090-4610-87e4-49d8ca9f808d", "John Smith", "Guardian"));
+		contactPersons.add(new ContactPerson("26118915-6090-4610-87e4-4f1234234223", BASE_URI + "/Users/26118915-6090-4610-87e4-4f1234234223", "Gullan Olsson", "Guardian"));
 		List<Enrolment> enrolments = new ArrayList<Enrolment>();
-		enrolments.add(new Enrolment("14122127283", SchoolType.gymnasieskola, "NA", 11, "2014-08-20", "2015-06-14"));
-		enrolments.add(new Enrolment("14122127283", SchoolType.gymnasieskola, "NA", 12, "2015-08-20", "2016-06-14"));
+		Reference ref = new Reference("26118915-6090-4610-87e4-49d8ca9f808d", BASE_URI + "/Schools/26118915-6090-4610-87e4-49d8ca9f808d", "Skolenhetsnamn");
+		enrolments.add(new Enrolment(BASE_URI + "/Schools/26118915-6090-4610-87e4-49d8ca9f808d", SchoolType.gymnasieskola, "NA", 11, "2014-08-20", "2015-06-14"));
+		enrolments.add(new Enrolment(BASE_URI + "/Schools/26118915-6090-4610-87e4-49d8ca9f808d", SchoolType.gymnasieskola, "NA", 12, "2015-08-20", "2016-06-14"));
 		student.setUser(new UserNode("200710042710", true, Gender.MALE, contactPersons, enrolments));
-		student.setMeta(new Meta(ResourceTypeStr.USER.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646", student.hashCode() + ""));
+		student.setMeta(new Meta(ResourceTypeStr.USER.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646", student.hashCode() + ""));
 		return student;
 	}
 
@@ -144,31 +143,31 @@ public class TestObject {
 		String[] schemas = { URN_GROUP_CORE, URN_DATERANGE };
 		group.setSchemas(schemas);
 		group.setDisplayName("7A");
+		group.setStudentGroup(new StudentGroup(StudentGroupType.Klass, 7, null, null, null));
 
 		GroupMember member1 = new GroupMember();
 		member1.setValue("2819c223-7f76-453a-919d-413861904646");
 		member1.setRef(BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646");
 		member1.setDisplay("Barbara Jensen");
-		member1.setBeginDate("2015-01-01");
+		member1.setStartDate("2015-01-01");
 		member1.setEndDate("2016-05-01");
-		group.getGroupMembers().addEmployee(member1);
+		group.getStudentGroup().addStudent(member1);
 
 		GroupMember member2 = new GroupMember();
 		member2.setValue("902c246b-6245-4190-8e05-00816be7344a");
 		member2.setRef(BASE_URI + "/Users/902c246b-6245-4190-8e05-00816be7344a");
 		member2.setDisplay("Mandy Pepperidge");
-		member2.setBeginDate("2015-01-01");
+		member2.setStartDate("2015-01-01");
 		member2.setEndDate("2015-12-31");
-		group.getGroupMembers().addEmployee(member2);
+		group.getStudentGroup().addStudent(member2);
 
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		GroupNode groupNode = new GroupNode();
-		groupNode.setDateRange(new DateRange("2015-01-01", "2015-12-31"));
-		groupNode.setParentGroup(new Reference("2819c223-7f76-453a-919d-413861904646",
-				BASE_URI + "/Groups/2819c223-7f76-453a-919d-413861904646", "Rudbäcksskolan"));
+		groupNode.setStartDate(sdf.parse("2015-01-01"));
+		groupNode.setEndDate(sdf.parse("2015-12-31"));
+		groupNode.setParentGroup(new Reference("2819c223-7f76-453a-919d-413861904646", BASE_URI + "/Groups/2819c223-7f76-453a-919d-413861904646", "Rudbäcksskolan"));
 		group.setGroup(groupNode);
-		group.setStudentGroup(new StudentGroup(StudentGroupType.Klass, 7, null, null));
-		group.setMeta(new Meta(ResourceTypeStr.GROUP.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Group/e9e30dba-f08f-4109-8486-d5c6a331660a", group.hashCode() + ""));
+		group.setMeta(new Meta(ResourceTypeStr.GROUP.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Group/e9e30dba-f08f-4109-8486-d5c6a331660a", group.hashCode() + ""));
 		return group;
 	}
 
@@ -177,63 +176,49 @@ public class TestObject {
 		String[] schemas = { URN_ACTIVITY };
 		activity.setSchemas(schemas);
 		activity.setActivityType(ActivityType.Undervisning);
-		activity.setCalendarEventRequired(true);
+		activity.setCalendarEventsRequired(true);
 		activity.setMinutesPlanned(4000);
-		activity.setDateRange(new DateRange("2016-02-25", "2016-04-15"));
-		activity.addStudentGroupAssignment(new Assignment("e9e30dba-f08f-4109-8486-d5c6a331660a",
-				BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "MATMAT01 N3A",
-				new DateRange("2016-02-25", "2016-04-15")));
-		activity.addStudentAssignment(new Assignment("2819c223-7f76-453a-919d-413861904646",
-				BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646", "Barbara Jensen",
-				new DateRange("2016-02-25", "2016-04-15")));
-		activity.addStudentAssignment(new Assignment("902c246b-6245-4190-8e05-00816be7344a",
-				BASE_URI + "/Users/902c246b-6245-4190-8e05-00816be7344a", "Mandy Pepperidge",
-				new DateRange("2016-02-25", "2016-04-15")));
-		activity.addTeacherAssignment(new TeacherAssignment("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Users/87dda8fa-7f76-453a-919d-413861904646", "Palle Girgensohn",
-				new DateRange("2016-02-25", "2016-04-15"), 3600));
-		activity.setCourse(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Courses/87dda8fa-7f76-453a-919d-413861904646", "Matematik A"));
-		activity.setParentActivity(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Courses/87dda8fa-7f76-453a-919d-413861904646", "Matematik"));
-		activity.setMeta(new Meta(ResourceTypeStr.ACTIVITY.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Activities/e9e30dba-f08f-4109-8486-d5c6a331660a", activity.hashCode() + ""));
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		activity.setStartDate(sdf.parse("2016-02-25"));
+		activity.setEndDate(sdf.parse("2016-04-15"));
+		activity.addStudentGroupAssignment(new Assignment("e9e30dba-f08f-4109-8486-d5c6a331660a", BASE_URI + "/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "MATMAT01 N3A", "2016-02-25", "2016-04-15"));
+		activity.addStudentAssignment(new Assignment("2819c223-7f76-453a-919d-413861904646", BASE_URI + "/Users/2819c223-7f76-453a-919d-413861904646", "Barbara Jensen", "2016-02-25", "2016-04-15"));
+		activity.addStudentAssignment(new Assignment("902c246b-6245-4190-8e05-00816be7344a", BASE_URI + "/Users/902c246b-6245-4190-8e05-00816be7344a", "Mandy Pepperidge", "2016-02-25", "2016-04-15"));
+		activity.addTeacherAssignment(new TeacherAssignment("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Users/87dda8fa-7f76-453a-919d-413861904646", "Palle Girgensohn", 3600, "2016-02-25", "2016-04-15"));
+		activity.setCourse(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Courses/87dda8fa-7f76-453a-919d-413861904646", "Matematik A"));
+		activity.setParentActivity(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Courses/87dda8fa-7f76-453a-919d-413861904646", "Matematik"));
+		activity.setMeta(new Meta(ResourceTypeStr.ACTIVITY.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Activities/e9e30dba-f08f-4109-8486-d5c6a331660a", activity.hashCode() + ""));
 		return activity;
 	}
 
-	public static CalendarEvent getTestCalendarEvent1() {
+	public static CalendarEvent getTestCalendarEvent1() throws ParseException {
 		CalendarEvent calendarEvent = new CalendarEvent("e9e30dba-f08f-4109-8486-d5c6a331660a");
 		String[] schemas = { URN_CALENDAREVENT };
 		calendarEvent.setSchemas(schemas);
 		calendarEvent.setCancelled(false);
 		calendarEvent.setComment("kommentar...");
-		calendarEvent.setDateTimeRange(new DateTimeRange("2016-05-24T14:00", "2016-05-24T15:00"));
+		DateFormat sdf = new SimpleDateFormat(DATE_TIME_FORMAT);
+		calendarEvent.setStartDateTime(sdf.parse("2016-05-24T14:00"));
+		calendarEvent.setEndDateTime(sdf.parse("2016-05-24T15:00"));
 		calendarEvent.setTeachingLengthTeacher(45);
 		calendarEvent.setTeachingLengthStudent(60);
-		calendarEvent.addRoom(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Rooms/87dda8fa-7f76-453a-919d-413861904646", "Safiren"));
-		calendarEvent.addRoom(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Rooms/87dda8fa-7f76-453a-919d-413861904646", "Pionen"));
-		calendarEvent.addResource(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Resources/87dda8fa-7f76-453a-919d-413861904646", "projektor13"));
-		calendarEvent.addResource(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Resources/87dda8fa-7f76-453a-919d-413861904646", "ipad2"));
-		Exception e1 = new Exception(true, 30, new DateTimeRange("2016-05-24T14:45", "2016-05-24T15:00"));
+		calendarEvent.addRoom(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Rooms/87dda8fa-7f76-453a-919d-413861904646", "Safiren"));
+		calendarEvent.addRoom(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Rooms/87dda8fa-7f76-453a-919d-413861904646", "Pionen"));
+		calendarEvent.addResource(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Resources/87dda8fa-7f76-453a-919d-413861904646", "projektor13"));
+		calendarEvent.addResource(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Resources/87dda8fa-7f76-453a-919d-413861904646", "ipad2"));
+		Exception e1 = new Exception(true, 30, "2016-05-24T14:45", "2016-05-24T15:00");
 		e1.setValue("87dda8fa-7f76-453a-919d-413861904646");
 		e1.setRef("https://example.com/v2/Users/87dda8fa-7f76-453a-919d-413861904646");
 		e1.setDisplay("Bosse Larsson");
 		calendarEvent.addStudentExceptions(e1);
 		calendarEvent.addGroupExceptions(e1);
-		TeacherException e2 = new TeacherException(true, 30, new DateTimeRange("2016-05-24T14:45", "2016-05-24T15:00"));
+		TeacherException e2 = new TeacherException(true, 30, "2016-05-24T14:45", "2016-05-24T15:00");
 		e2.setValue("87dda8fa-7f76-453a-919d-413861904646");
 		e2.setRef("https://example.com/v2/Users/87dda8fa-7f76-453a-919d-413861904646");
 		e2.setDisplay("Bosse Larsson");
 		calendarEvent.addTeacherExceptions(e2);
-		calendarEvent.setActivity(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Courses/87dda8fa-7f76-453a-919d-413861904646", "Matematik A"));
-		calendarEvent.setMeta(new Meta(ResourceTypeStr.CALENDAREVENT.toString(), "2010-01-23T04:56:22Z",
-				"2011-05-13T04:42:34Z", BASE_URI + "/CalendarEvents/e9e30dba-f08f-4109-8486-d5c6a331660a",
-				calendarEvent.hashCode() + ""));
+		calendarEvent.setActivity(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Courses/87dda8fa-7f76-453a-919d-413861904646", "Matematik A"));
+		calendarEvent.setMeta(new Meta(ResourceTypeStr.CALENDAREVENT.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/CalendarEvents/e9e30dba-f08f-4109-8486-d5c6a331660a", calendarEvent.hashCode() + ""));
 		return calendarEvent;
 	}
 
@@ -241,16 +226,15 @@ public class TestObject {
 		Employment employment = new Employment("e9e30dba-f08f-4109-8486-d5c6a331660a");
 		String[] schemas = { URN_EMPLOYMENT };
 		employment.setSchemas(schemas);
-		employment.setEmploymentTime(new DateRange("1970-01-23", "2013-06-30"));
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+		employment.setStartDate(sdf.parse("1970-01-23"));
+		employment.setEndDate(sdf.parse("2013-06-30"));
 		employment.setEmploymentPercent(100);
 		employment.setHoursPerYear(1340);
 		employment.setTeacher(true);
 		employment.setSignature("PAK");
-		employment.setEmployedAt(new Reference("e9ddadba-f08f-4109-8486-d5c6a331660a",
-				"https://example.com/v2/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "SkolenhetA"));
-		employment
-				.setMeta(new Meta(ResourceTypeStr.EMPLOYMENT.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-						BASE_URI + "/Employments/e9e30dba-f08f-4109-8486-d5c6a331660a", employment.hashCode() + ""));
+		employment.setSchool(new Reference("e9ddadba-f08f-4109-8486-d5c6a331660a", "https://example.com/v2/Groups/e9e30dba-f08f-4109-8486-d5c6a331660a", "SkolenhetA"));
+		employment.setMeta(new Meta(ResourceTypeStr.EMPLOYMENT.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Employments/e9e30dba-f08f-4109-8486-d5c6a331660a", employment.hashCode() + ""));
 		return employment;
 	}
 
@@ -262,8 +246,7 @@ public class TestObject {
 		subject.setName("Matematik");
 		subject.setSubjectShortName("Matte");
 		subject.setOfficial(true);
-		subject.setMeta(new Meta(ResourceTypeStr.SUBJECT.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Subjects/e9e30dba-f08f-4109-8486-d5c6a331660a", subject.hashCode() + ""));
+		subject.setMeta(new Meta(ResourceTypeStr.SUBJECT.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Subjects/e9e30dba-f08f-4109-8486-d5c6a331660a", subject.hashCode() + ""));
 		return subject;
 	}
 
@@ -276,8 +259,7 @@ public class TestObject {
 		course.setSubjectShortName("Matte");
 		course.setOfficial(true);
 		course.setPoints(100);
-		course.setMeta(new Meta(ResourceTypeStr.COURSE.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Subjects/e9e30dba-f08f-4109-8486-d5c6a331660a", course.hashCode() + ""));
+		course.setMeta(new Meta(ResourceTypeStr.COURSE.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Subjects/e9e30dba-f08f-4109-8486-d5c6a331660a", course.hashCode() + ""));
 		return course;
 	}
 
@@ -287,10 +269,8 @@ public class TestObject {
 		room.setSchemas(schemas);
 		room.setName("Aulan");
 		room.setSeats(52);
-		room.setSchoolGroup(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Groups/87dda8fa-7f76-453a-919d-413861904646", "Skolnamn"));
-		room.setMeta(new Meta(ResourceTypeStr.ROOM.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Rooms/e9e30dba-f08f-4109-8486-d5c6a331660a", room.hashCode() + ""));
+		room.setSchoolGroup(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Groups/87dda8fa-7f76-453a-919d-413861904646", "Skolnamn"));
+		room.setMeta(new Meta(ResourceTypeStr.ROOM.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Rooms/e9e30dba-f08f-4109-8486-d5c6a331660a", room.hashCode() + ""));
 		return room;
 	}
 
@@ -300,10 +280,8 @@ public class TestObject {
 		resource.setSchemas(schemas);
 		resource.setName("Aulan");
 		resource.setDescription("projektor 13, Kenwood 2000");
-		resource.setSchoolGroup(new Reference("87dda8fa-7f76-453a-919d-413861904646",
-				"https://example.com/v2/Groups/87dda8fa-7f76-453a-919d-413861904646", "Skolnamn"));
-		resource.setMeta(new Meta(ResourceTypeStr.RESOURCE.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z",
-				BASE_URI + "/Resources/e9e30dba-f08f-4109-8486-d5c6a331660a", resource.hashCode() + ""));
+		resource.setSchoolGroup(new Reference("87dda8fa-7f76-453a-919d-413861904646", "https://example.com/v2/Groups/87dda8fa-7f76-453a-919d-413861904646", "Skolnamn"));
+		resource.setMeta(new Meta(ResourceTypeStr.RESOURCE.toString(), "2010-01-23T04:56:22Z", "2011-05-13T04:42:34Z", BASE_URI + "/Resources/e9e30dba-f08f-4109-8486-d5c6a331660a", resource.hashCode() + ""));
 		return resource;
 	}
 }

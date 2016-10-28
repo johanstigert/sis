@@ -3,12 +3,9 @@ package sis.school.model.scim2.extension.extension;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import sis.school.model.scim2.extension.code.Code.Gender;
 import sis.school.model.scim2.extension.element.ContactPerson;
 
 /**
@@ -16,7 +13,6 @@ import sis.school.model.scim2.extension.element.ContactPerson;
  * ©TimeEdit 2016
  *
  */
-@JsonIgnoreProperties({ "nativeLanguage" })
 @JsonPropertyOrder({ "civicNo", "securityMarking", "gender", "contactPersons", "enrolment" })
 public class UserNode {
 
@@ -41,8 +37,7 @@ public class UserNode {
 	public UserNode() {
 	}
 
-	public UserNode(String civicNo, boolean securityMarking, String gender, List<ContactPerson> contactPersons,
-			List<Enrolment> enrolments) {
+	public UserNode(String civicNo, boolean securityMarking, String gender, List<ContactPerson> contactPersons, List<Enrolment> enrolments) {
 		this.civicNo = civicNo;
 		this.securityMarking = securityMarking;
 		this.gender = gender;

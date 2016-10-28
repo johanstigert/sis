@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  * ©TimeEdit 2016
  *
  */
-@JsonPropertyOrder({ "value", "$ref", "display" })
 @JsonIgnoreProperties({ "type", "primary" })
+@JsonPropertyOrder({ "value", "$ref", "display" })
 public class Reference {
 
 	private String value;
